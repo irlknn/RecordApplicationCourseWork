@@ -1,11 +1,11 @@
 package ui.serviceController;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.DBTableManager;
@@ -50,7 +50,7 @@ public class SceneController {
     }
 
 
-    public void goToCreateRecordPane(ActionEvent e, DBTableManager repository, String tableName){
+    public void goToCreateRecordPane(ActionEvent e, DBTableManager repository, String tableName) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/createRecordScene.fxml"));
             Parent root = loader.load();

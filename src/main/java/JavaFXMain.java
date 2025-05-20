@@ -7,10 +7,14 @@ import repository.DBInitializer;
 
 import java.util.Objects;
 
-public class JavaFXMain extends  Application{
+public class JavaFXMain extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception {
         DBInitializer.initializeDB();
 //        DBInitializer.addData();
 
@@ -22,9 +26,5 @@ public class JavaFXMain extends  Application{
         stage.setScene(scene);
 //        stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

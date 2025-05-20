@@ -8,13 +8,13 @@ public class FindController {
     private DBTableManager repository;
     private String tableName;
 
-    public FindController(DBTableManager repository, String tableName){
+    public FindController(DBTableManager repository, String tableName) {
         this.repository = repository;
         this.tableName = tableName;
     }
 
-    public ObservableList<Record> findBy(String parameter, String input){
-        switch (parameter){
+    public ObservableList<Record> findBy(String parameter, String input) {
+        switch (parameter) {
             case "title", "style" -> {
                 return repository.findByParameter(tableName, parameter, input);
             }
@@ -22,7 +22,7 @@ public class FindController {
                 return repository.findByDuration(tableName, "00:00:00", input);
             }
             default -> {
-                return repository.findByParameter(tableName,"title", input);
+                return repository.findByParameter(tableName, "title", input);
             }
         }
     }

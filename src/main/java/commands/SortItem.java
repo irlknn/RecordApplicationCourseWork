@@ -2,10 +2,10 @@ package commands;
 
 import deprecated.UserActionHandler;
 
-public class SortItem implements Command{
+public class SortItem implements Command {
     private UserActionHandler collection;
 
-    public SortItem(UserActionHandler collection){
+    public SortItem(UserActionHandler collection) {
         this.collection = collection;
     }
 

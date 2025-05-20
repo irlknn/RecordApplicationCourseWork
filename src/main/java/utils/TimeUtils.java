@@ -1,4 +1,5 @@
 package utils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,12 +11,12 @@ public class TimeUtils {
     private static final Logger logger = LogManager.getLogger(TimeUtils.class);
     private static final DateTimeFormatter DB_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    public static String changeTimeFormat(LocalTime duration){
+    public static String changeTimeFormat(LocalTime duration) {
         return duration.format(DB_FORMATTER);
     }
 
-    public static LocalTime changeTimeFormat(String duration){
-        DateTimeFormatter[] formatters = new DateTimeFormatter[] {
+    public static LocalTime changeTimeFormat(String duration) {
+        DateTimeFormatter[] formatters = new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("m:s"),
                 DateTimeFormatter.ofPattern("m:ss"),
                 DateTimeFormatter.ofPattern("mm:ss"),
@@ -26,7 +27,8 @@ public class TimeUtils {
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalTime.parse(duration, formatter);
-            } catch (DateTimeParseException ignored) {}
+            } catch (DateTimeParseException ignored) {
+            }
         }
 
         logger.error("Wrong time format {}", duration);

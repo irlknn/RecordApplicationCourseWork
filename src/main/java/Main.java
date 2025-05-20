@@ -1,8 +1,8 @@
+import commands.FindItem;
 import deprecated.RecordCollection;
+import deprecated.UserInputReader;
 import repository.DBInitializer;
 import repository.DBTableManager;
-import commands.*;
-import deprecated.UserInputReader;
 
 public class Main {
     private final DBTableManager tableManager = new DBTableManager();
@@ -12,11 +12,11 @@ public class Main {
         DBInitializer.initializeDB();
 //        DBInitializer.addData();
 
-        while (true){
+        while (true) {
             System.out.println(menu());
             int input = UserInputReader.getInteger();
 
-            switch (input){
+            switch (input) {
 //                case 1 -> new AddItem(recordCollection).execute();
 //                case 2 -> new DeleteItem(recordCollection).execute();
                 case 3 -> new FindItem(recordCollection).execute();
@@ -32,7 +32,7 @@ public class Main {
 
     }
 
-    public static String menu(){
+    public static String menu() {
         return """
                 Main menu
                 1. Add record

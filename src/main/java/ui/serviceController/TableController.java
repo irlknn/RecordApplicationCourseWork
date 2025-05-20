@@ -3,15 +3,14 @@ package ui.serviceController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import repository.DBTableManager;
-
 import models.Record;
+import repository.DBTableManager;
 
 public class TableController {
     private DBTableManager tableManager;
     private String tableName;
 
-    public TableController(DBTableManager tableManager, String tableName){
+    public TableController(DBTableManager tableManager, String tableName) {
         this.tableManager = tableManager;
         this.tableName = tableName;
     }
@@ -29,7 +28,7 @@ public class TableController {
         showAll(tableView);
     }
 
-    public void showAll(TableView<Record> tableView){
+    public void showAll(TableView<Record> tableView) {
         tableView.setItems(tableManager.selectAllFromTable(tableName));
     }
 }

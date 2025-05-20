@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class RecordCollection implements UserActionHandler {
-private DBTableManager tableManager = new DBTableManager();
+    private DBTableManager tableManager = new DBTableManager();
 
     @Override
     public void add() {
@@ -16,7 +16,7 @@ private DBTableManager tableManager = new DBTableManager();
         System.out.println("Record was added");
     }
 
-    public models.Record createRecordWithConsole(){
+    public models.Record createRecordWithConsole() {
         System.out.println("Title: ");
         String title = UserInputReader.getString();
         System.out.println("Style: ");
@@ -35,7 +35,7 @@ private DBTableManager tableManager = new DBTableManager();
 
     @Override
     public void find() {
-        while (true){
+        while (true) {
             System.out.println("""
                     1. Find by title
                     2. Find by style
@@ -44,17 +44,17 @@ private DBTableManager tableManager = new DBTableManager();
                     """);
 
             int input = UserInputReader.getInteger();
-            switch (input){
+            switch (input) {
                 case 1 -> {
                     System.out.println("title: ");
                     String title = UserInputReader.getString();
-                    List<models.Record> foundRecords = tableManager.findByParameter("records","title", title);
+                    List<models.Record> foundRecords = tableManager.findByParameter("records", "title", title);
                     foundRecords.forEach(System.out::println);
                 }
                 case 2 -> {
                     System.out.println("style: ");
                     String style = UserInputReader.getString();
-                    List<models.Record> foundRecords = tableManager.findByParameter("records","style", style);
+                    List<models.Record> foundRecords = tableManager.findByParameter("records", "style", style);
                     foundRecords.forEach(System.out::println);
                 }
                 case 3 -> {
@@ -88,13 +88,13 @@ private DBTableManager tableManager = new DBTableManager();
                 case 1 -> {
                     System.out.println("title: ");
 //                    String title = UserInputReader.getString();
-                    List<models.Record> sortedRecords = tableManager.sortByParameter("records","title");
+                    List<models.Record> sortedRecords = tableManager.sortByParameter("records", "title");
                     sortedRecords.forEach(System.out::println);
                 }
                 case 2 -> {
                     System.out.println("style: ");
 //                    String style = UserInputReader.getString();
-                    List<Record> sortedRecords = tableManager.sortByParameter("records","style");
+                    List<Record> sortedRecords = tableManager.sortByParameter("records", "style");
                     sortedRecords.forEach(System.out::println);
                 }
                 case 3 -> {

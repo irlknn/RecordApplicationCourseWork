@@ -14,14 +14,12 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TablesNameListController {
     private static final Logger logger = LogManager.getLogger(TablesNameListController.class);
     private DBManager dbManager = new DBManager();
 
-    public void loadTablesName(VBox tablesNameContainer){
+    public void loadTablesName(VBox tablesNameContainer) {
         int tablesSize = 0;
         tablesNameContainer.getChildren().clear();
 
@@ -96,7 +94,7 @@ public class TablesNameListController {
     }
 
 
-
-    public void clearFilters(){}
+    public void clearFilters() {
+    }
 
 }

@@ -7,26 +7,26 @@ import java.util.Scanner;
 public class UserInputReader {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static int getInteger(){
+    public static int getInteger() {
         int input;
-        while(true){
-            try{
+        while (true) {
+            try {
                 input = (scanner.nextInt());
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Try again");
                 continue;
-            }finally {
+            } finally {
                 scanner.nextLine();
             }
             return input;
         }
     }
 
-    public static String getString(){
+    public static String getString() {
         return scanner.nextLine();
     }
 
-    public static LocalTime getDuration(){
+    public static LocalTime getDuration() {
         LocalTime duration = null;
 
         while (duration == null) {

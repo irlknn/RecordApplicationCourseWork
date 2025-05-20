@@ -1,21 +1,22 @@
 package repository;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.time.LocalTime;
-import java.util.List;
 import models.Record;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalTime;
+import java.util.List;
 
 import static utils.TimeUtils.changeTimeFormat;
 
 public class DBInitializer {
     private static final Logger logger = LogManager.getLogger(DBInitializer.class);
 
-    public static void initializeDB(){
+    public static void initializeDB() {
         String sql = """
                 CREATE TABLE IF NOT EXISTS records(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,12 +33,12 @@ public class DBInitializer {
         } catch (SQLException e) {
             logger.error("Error in creating DB");
             throw new RuntimeException();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("DB initialization error");
         }
     }
 
-    public static void addData(){
+    public static void addData() {
         List<Record> records = List.of(
                 new Record("Bohemian Rhapsody", "Rock", LocalTime.of(0, 5, 55)),
                 new Record("Billie Jean", "Pop", LocalTime.of(0, 4, 54)),
@@ -74,20 +75,20 @@ public class DBInitializer {
 
         String sql = "INSERT INTO records(title, style, duration) VALUES (?, ?, ?)";
 
-            try (Connection connection = DatabaseConnector.getConnection();
-                 PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DatabaseConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-                for (Record record : records) {
-                    statement.setString(1, record.getTitle());
-                    statement.setString(2, record.getStyle());
-                    statement.setString(3, changeTimeFormat(record.getDuration()));
-                    statement.addBatch();
-                }
-                statement.executeBatch();
-                logger.info("Added {} pre-prepared records to DB", records.size());
-            } catch (SQLException e) {
-                logger.error("Failed to insert pre-prepared records");
+            for (Record record : records) {
+                statement.setString(1, record.getTitle());
+                statement.setString(2, record.getStyle());
+                statement.setString(3, changeTimeFormat(record.getDuration()));
+                statement.addBatch();
             }
+            statement.executeBatch();
+            logger.info("Added {} pre-prepared records to DB", records.size());
+        } catch (SQLException e) {
+            logger.error("Failed to insert pre-prepared records");
+        }
     }
 
 }

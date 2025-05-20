@@ -18,24 +18,29 @@ public class CreateRecordController {
     private DBTableManager repository;
     private String tableName;
 
-    @FXML private TextField titleField;
-    @FXML private TextField styleField;
-    @FXML private TextField durationField;
+    @FXML
+    private TextField titleField;
+    @FXML
+    private TextField styleField;
+    @FXML
+    private TextField durationField;
 
     public CreateRecordController(String tableName) {
         this.tableName = tableName;
     }
 
-    public void setTableName(String tableName){this.tableName = tableName;}
+    public CreateRecordController() {
+    }
 
-    public CreateRecordController() {}
-
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
     public void setRepository(DBTableManager repository) {
         this.repository = repository;
     }
 
-    public void clickOnSubmitButton(ActionEvent e){
+    public void clickOnSubmitButton(ActionEvent e) {
         System.out.println("add button pressed");
         Record record = createRecord();
         if (record != null) {
