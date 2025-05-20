@@ -1,0 +1,6 @@
+package repository;
+
+
+class RecordRepositoryTest {
+
+}
