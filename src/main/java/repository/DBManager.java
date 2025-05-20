@@ -7,11 +7,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static repository.DBService.validateTableName;
+
 public class DBManager {
     private static final Logger logger = LogManager.getLogger(DBManager.class);
 
-
     public void createTable(String tableName) {
+        validateTableName(tableName);
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "title TEXT NOT NULL," +
@@ -40,4 +42,5 @@ public class DBManager {
             logger.error("Failed to delete table {}: {}", tableName, e.getMessage());
         }
     }
+
 }

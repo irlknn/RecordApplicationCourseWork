@@ -57,41 +57,29 @@ public class CollectionSceneController implements Initializable {
     private TableController tableController;
     private CollectionService collectionService;
 
-    public CollectionSceneController(String tableName) {
-        this.tableName = tableName;
-    }
+    public CollectionSceneController() {}
 
-    public CollectionSceneController() {
-    }
-
-    public void setTableName(String tableName) {
+    public void initialize(String tableName, DBTableManager tableManager, TableController tableController, CollectionService collectionService) {
         this.tableName = tableName;
-        this.tableManager = new DBTableManager();
-        this.tableController = new TableController(tableManager, tableName);
-        this.collectionService = new CollectionService(tableManager.selectAllFromTable(tableName));
+        this.tableManager = tableManager;
+        this.tableController = tableController;
+        this.collectionService = collectionService;
+
         tableNameLabel.setText(tableName);
         collectionDurationLabel.setText(collectionService.collectionDuration());
-
-        collectionDurationLabel.setText(collectionService.collectionDuration());
         tableController.initialize(tableView, idColumn, titleColumn, styleColumn, durationColumn);
-
-        loadTableData();
-    }
-
-    private void loadTableData() {
-        System.out.println("Завантаження таблиці: " + tableName);
-        // ТУТ – завантаження даних з цієї таблиці в TableView або VBox
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+//        this is called by fxml automatically
         sortChoiceBox.getItems().addAll(filterParameters);
         sortChoiceBox.setOnAction(this::selectSortBy);
 
         findChoiceBox.getItems().addAll(filterParameters);
         findChoiceBox.setOnAction(this::selectFindBy);
     }
+
 
     public void clickOnAddButton(ActionEvent e) {
         SceneController sceneController = new SceneController();
@@ -103,7 +91,7 @@ public class CollectionSceneController implements Initializable {
         Record selected = tableView.getSelectionModel().getSelectedItem();
         tableView.getItems().remove(selected);
 
-        Command delete = new DeleteItem(tableManager, selected);
+        Command delete = new DeleteItem(tableManager, selected, tableName);
         delete.execute();
 
         refreshCollectionDuration();

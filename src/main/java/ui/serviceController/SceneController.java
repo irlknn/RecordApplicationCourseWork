@@ -11,35 +11,43 @@ import org.apache.logging.log4j.Logger;
 import repository.DBTableManager;
 import ui.CollectionSceneController;
 import ui.CreateRecordController;
+import utils.CollectionService;
 
 import java.io.IOException;
 import java.util.Objects;
+
+import static ui.UIConstants.*;
 
 public class SceneController {
     private static final Logger logger = LogManager.getLogger(SceneController.class);
 
     public void goToRecordCollectionScene(ActionEvent event, String tableName) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/recordCollectionScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(RECORD_COLLECTION_SCENE_FXML));
             Parent root = loader.load();
 
-            // Передати tableName у контролер
             CollectionSceneController controller = loader.getController();
-            controller.setTableName(tableName);
+
+            DBTableManager tableManager = new DBTableManager();
+            TableController tableController = new TableController(tableManager, tableName);
+            CollectionService collectionService = new CollectionService(tableManager.selectAllFromTable(tableName));
+
+            controller.initialize(tableName, tableManager, tableController, collectionService);
+
             logger.info("Opened {} collection", tableName);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            logger.error("problem with loading recordCollectionScene.fxml");
+            logger.error("problem with creating and loading record collection scene for {}", tableName);
             throw new RuntimeException(e);
         }
     }
 
     public void goBackToMainScene(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/ui/mainScene.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(MAIN_SCENE_FXML)));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -52,7 +60,7 @@ public class SceneController {
 
     public void goToCreateRecordPane(ActionEvent e, DBTableManager repository, String tableName) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/createRecordScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(CREATE_RECORD_SCENE_FXML));
             Parent root = loader.load();
 
             CreateRecordController controller = loader.getController();

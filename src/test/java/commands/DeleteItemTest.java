@@ -22,7 +22,7 @@ public class DeleteItemTest {
 
     @Test
     public void testExecute_DeletesRecord_WhenRecordIsNotNull() {
-        DeleteItem deleteItem = new DeleteItem(repository, record);
+        DeleteItem deleteItem = new DeleteItem(repository, record, "records");
         deleteItem.execute();
 
         // перевіряємо, що deleteById викликається з правильними параметрами
@@ -31,7 +31,7 @@ public class DeleteItemTest {
 
     @Test
     public void testExecute_DoesNothing_WhenRecordIsNull() {
-        DeleteItem deleteItem = new DeleteItem(repository, null);
+        DeleteItem deleteItem = new DeleteItem(repository, null, "records");
         deleteItem.execute();
 
         // перевіряємо, що метод deleteById не викликається взагалі

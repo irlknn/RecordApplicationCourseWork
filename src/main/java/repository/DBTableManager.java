@@ -8,12 +8,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
+import static repository.DBService.validateTableName;
 import static utils.TimeUtils.changeTimeFormat;
 
 public class DBTableManager {
     private static final Logger logger = LogManager.getLogger(DBTableManager.class);
 
     public ObservableList<Record> selectAllFromTable(String tableName) {
+        validateTableName(tableName);
         ObservableList<Record> records = FXCollections.observableArrayList();
         System.out.println("tableName = " + tableName);
 
@@ -41,6 +43,7 @@ public class DBTableManager {
     }
 
     public void insertIntoTable(Record record, String tableName) {
+        validateTableName(tableName);
         String sql = "INSERT INTO " + tableName + "(title, style, duration) VALUES (?, ?, ?)";
 
         try (Connection connection = DatabaseConnector.getConnection();
@@ -49,7 +52,6 @@ public class DBTableManager {
             statement.setString(2, record.getStyle());
             statement.setString(3, changeTimeFormat(record.getDuration()));
             statement.executeUpdate();
-
             logger.info("Record saved to db {}", record.getTitle());
         } catch (SQLException e) {
             logger.error("Failed to save record {}: {}", record.getTitle(), e.getMessage());
@@ -57,6 +59,7 @@ public class DBTableManager {
     }
 
     public void deleteFromTableById(int id, String tableName) {
+        validateTableName(tableName);
         String sql = "DELETE FROM " + tableName + " WHERE id = ?";
 
         try (Connection connection = DatabaseConnector.getConnection();
@@ -71,6 +74,8 @@ public class DBTableManager {
     }
 
     public ObservableList<Record> findByParameter(String tableName, String parameter, String input) {
+        validateTableName(tableName);
+
         ObservableList<Record> records = FXCollections.observableArrayList();
         String sql = "SELECT * FROM " + tableName + " WHERE " + parameter + " LIKE ?";
 
@@ -96,6 +101,8 @@ public class DBTableManager {
     }
 
     public ObservableList<Record> findByDuration(String tableName, String start, String end) {
+        validateTableName(tableName);
+
         ObservableList<Record> records = FXCollections.observableArrayList();
         String sql = "SELECT * FROM " + tableName + " WHERE duration BETWEEN ? AND ? ";
 
@@ -112,6 +119,8 @@ public class DBTableManager {
     }
 
     public ObservableList<Record> sortByParameter(String tableName, String parameter) {
+        validateTableName(tableName);
+
         ObservableList<Record> records = FXCollections.observableArrayList();
         String sql = "Select * FROM " + tableName + " ORDER BY " + parameter;
 
