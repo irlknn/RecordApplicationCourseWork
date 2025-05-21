@@ -10,8 +10,9 @@ public class DatabaseConnector {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL);
     }
+}
 
-    //    private static Connection testConnection = null;
+//    private static Connection testConnection = null;
 //
 //    public static void setTestConnection(Connection conn) {
 //        testConnection = conn;
@@ -24,4 +25,3 @@ public class DatabaseConnector {
 //        return DriverManager.getConnection(URL);
 //    }
 
-}

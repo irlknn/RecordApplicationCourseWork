@@ -37,7 +37,9 @@ public class SceneController {
             logger.info("Opened {} collection", tableName);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
             stage.show();
         } catch (IOException e) {
             logger.error("problem with creating and loading record collection scene for {}", tableName);
@@ -49,7 +51,9 @@ public class SceneController {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(MAIN_SCENE_FXML)));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
             stage.show();
         } catch (IOException e) {
             logger.error("problem with switching to main scene");
@@ -68,7 +72,9 @@ public class SceneController {
             controller.setTableName(tableName);
 
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
             stage.show();
         } catch (IOException ex) {
             logger.error("problem with switching to create record scene");

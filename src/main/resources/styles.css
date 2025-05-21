@@ -1,0 +1,403 @@
+/* JavaFX CSS Stylesheet for Record Collection Application */
+
+/* Root styling */
+.root {
+    -fx-background-color: #f8f9fa;
+    -fx-font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* Scene background */
+.scene-pane {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f1f3f5);
+}
+
+/* VBox container styling */
+.vbox {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+/* Split Pane styling */
+.split-pane {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+}
+
+.split-pane .split-pane-divider {
+    -fx-background-color: #dee2e6;
+    -fx-border-color: transparent;
+    -fx-pref-width: 2px;
+}
+
+/* Anchor Pane styling */
+.anchor-pane {
+    -fx-background-color: #ffffff;
+}
+
+#tableAnchorPane {
+    -fx-background-color: #fefefe;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 0 1px 0 0;
+}
+
+#menuAnchorPane {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 0 0 0 1px;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #425cb1;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,123,255,0.25), 4, 0, 0, 2);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,123,255,0.35), 6, 0, 0, 3);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-background-color: #004085;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,123,255,0.2), 2, 0, 0, 1);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Primary action buttons */
+#submitButton, #addButton, #crateButton {
+    -fx-background-color: #359661;
+    -fx-effect: dropshadow(three-pass-box, rgba(40,167,69,0.25), 4, 0, 0, 2);
+}
+
+#submitButton:hover, #addButton:hover, #crateButton:hover {
+    -fx-background-color: #348157;
+    -fx-effect: dropshadow(three-pass-box, rgba(40,167,69,0.35), 6, 0, 0, 3);
+}
+
+#submitButton:pressed, #addButton:pressed, #crateButton:pressed {
+    -fx-background-color: #2e6e4b;
+}
+
+/* Destructive action buttons */
+#deleteButton {
+    -fx-background-color: #425cb1;
+    -fx-effect: dropshadow(three-pass-box, rgba(220,53,69,0.25), 4, 0, 0, 2);
+}
+
+#deleteButton:hover {
+    -fx-background-color: #425cb1;
+    -fx-effect: dropshadow(three-pass-box, rgba(220,53,69,0.35), 6, 0, 0, 3);
+}
+
+#deleteButton:pressed {
+    -fx-background-color: #bd2130;
+}
+
+/* Secondary buttons */
+#exitButton {
+    -fx-background-color: #6c757d;
+    -fx-effect: dropshadow(three-pass-box, rgba(108,117,125,0.25), 4, 0, 0, 2);
+}
+
+#exitButton:hover {
+    -fx-background-color: #5a6268;
+    -fx-effect: dropshadow(three-pass-box, rgba(108,117,125,0.35), 6, 0, 0, 3);
+}
+
+#exitButton:pressed {
+    -fx-background-color: #545b62;
+}
+
+/* TextField styling */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #495057;
+    -fx-prompt-text-fill: #6c757d;
+}
+
+.text-field:focused {
+    -fx-border-color: #007bff;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,123,255,0.25), 0, 0, 0, 0),
+               inset 0 0 0 1px #007bff;
+}
+
+.text-field:hover:!focused {
+    -fx-border-color: #adb5bd;
+}
+
+/* ChoiceBox styling */
+.choice-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 4px 8px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.choice-box:hover {
+    -fx-border-color: #adb5bd;
+}
+
+.choice-box:focused {
+    -fx-border-color: #007bff;
+    -fx-border-width: 2px;
+}
+
+.choice-box .arrow {
+    -fx-background-color: #6c757d;
+}
+
+.choice-box:hover .arrow {
+    -fx-background-color: #495057;
+}
+
+/* Label styling */
+.label {
+    -fx-text-fill: #343a40;
+    -fx-font-size: 18px;
+    -fx-font-weight: 400;
+}
+
+/* Header labels */
+.label[text="menu"],
+.label[text="records"],
+.label[text="create new record"] {
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #495057;
+}
+
+/* Form labels */
+.label[text="Title"],
+.label[text="Style"],
+.label[text="Duration"] {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #495057;
+}
+
+/* Instruction labels */
+.label[text="click on collection to open"] {
+    -fx-font-size: 16px;
+    -fx-font-weight: 400;
+    -fx-text-fill: #6c757d;
+    -fx-font-style: italic;
+}
+
+/* Status bar labels */
+.label[text="Left status"],
+.label[text="Right status"] {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6c757d;
+}
+
+/* TableView styling */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 0 1px 0 0;
+    -fx-padding: 12px 8px;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #495057;
+}
+
+.table-view .table-cell {
+    -fx-border-color: #f1f3f5;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 8px;
+    -fx-text-fill: #495057;
+}
+
+.table-row-cell {
+    -fx-background-color: #ffffff;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1976d2;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f0f9ff;
+}
+
+/* GridPane styling for forms */
+.grid-pane {
+    -fx-hgap: 15px;
+    -fx-vgap: 20px;
+    -fx-padding: 20px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 6, 0, 0, 2);
+}
+
+/* HBox styling */
+.h-box {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+/* Status bar */
+#HBox {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 6px 12px;
+}
+
+/* ButtonBar styling */
+.button-bar {
+    -fx-spacing: 10px;
+}
+
+/* VBox menu container styling */
+.v-box {
+    -fx-spacing: 5px;
+    -fx-padding: 10px;
+}
+
+/* Menu VBox specific styling */
+#menuAnchorPane .v-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 4, 0, 0, 1);
+    -fx-padding: 15px;
+}
+
+/* Scrollable area styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #ffffff;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #f8f9fa;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #ced4da;
+    -fx-background-radius: 6px;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #adb5bd;
+}
+
+/* Hyperlink styling */
+.hyperlink {
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-underline: false;
+    -fx-border-color: transparent;
+    -fx-padding: 8px 4px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #343a40;
+    -fx-underline: true;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #000000;
+}
+
+.hyperlink:pressed {
+    -fx-text-fill: #495057;
+}
+
+/* Delete button specific styling */
+.button[text="🗑"] {
+    -fx-background-color: #425cb1;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 2px;
+    -fx-margin: 10px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-min-width: 30px;
+    -fx-pref-width: 25px;
+}
+
+.button[text="🗑"]:hover {
+    -fx-background-color: #c82333;
+}
+
+.button[text="🗑"]:pressed {
+    -fx-background-color: #bd2130;
+}
+
+/* Cursor hand for interactive elements */
+.button, .choice-box, .table-row-cell, .hyperlink {
+    -fx-cursor: hand;
+}
+
+/* Focus outline removal for cleaner look */
+.button:focused,
+.text-field:focused,
+.choice-box:focused,
+.table-view:focused {
+    -fx-background-insets: 0;
+}
+
+/* Animation for smooth transitions */
+.button, .text-field, .choice-box {
+    -fx-transition: all 0.2s ease;
+}

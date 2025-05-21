@@ -36,6 +36,7 @@ public class TablesNameListController {
                 tablesNameContainer.getChildren().add(row);
                 tablesSize++;
             }
+            tablesNameContainer.autosize();
             logger.info("Loaded {} table names from DB", tablesSize);
 
         } catch (SQLException e) {
@@ -91,10 +92,6 @@ public class TablesNameListController {
         } catch (SQLException e) {
             e.printStackTrace(); // або logger.error
         }
-    }
-
-
-    public void clearFilters() {
     }
 
 }

@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%d{HH:mm:ss}] [%-5level] %c{1} - %msg%n"/>
+        <RollingFile name="FileAppender" fileName="logs/app.log"
+                     filePattern="logs/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <Smtp name="EmailAppender" subject="App Error"
+              to="log046.sender@gmail.com"
+              from="log046.sender@gmail.com"
+              smtpHost="smtp.gmail.com"
+              smtpPort="587"
+              smtpUsername="log046.sender@gmail.com"
+              smtpPassword="elvlclhrdretjijg"
+              smtpProtocol="smtp"
+              bufferSize="512"
+              ignoreExceptions="false">
+
+            <SMTPProperty key="mail.smtp.starttls.enable" value="true"/>
+            <SMTPProperty key="mail.smtp.auth" value="true"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+        </Smtp>
+
+
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <!--            <PatternLayout pattern="%p - %m%n"/>-->
+            <PatternLayout pattern="[%p] %logger{10} - %msg%n"/>
         </Console>
-        <File name="File" fileName="logs/app.log" append="true">
-            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%-5level] %c - %msg%n"/>
-        </File>
     </Appenders>
 
     <Loggers>
+        <Logger name="DBTableManager" level="debug" additivity="false">
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="EmailAppender" level="error"/>
+        </Logger>
+
+        <Logger name="DBManager" level="debug" additivity="false">
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="EmailAppender" level="error"/>
+        </Logger>
+
         <Root level="info">
-            <AppenderRef ref="Console"/>
-            <AppenderRef ref="File"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="EmailAppender" level="error"/>
         </Root>
     </Loggers>
 </Configuration>
+
 
         <!--<?xml version="1.0" encoding="UTF-8"?>-->
         <!--<Configuration status="WARN">-->

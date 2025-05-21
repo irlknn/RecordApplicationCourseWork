@@ -57,7 +57,8 @@ public class CollectionSceneController implements Initializable {
     private TableController tableController;
     private CollectionService collectionService;
 
-    public CollectionSceneController() {}
+    public CollectionSceneController() {
+    }
 
     public void initialize(String tableName, DBTableManager tableManager, TableController tableController, CollectionService collectionService) {
         this.tableName = tableName;
