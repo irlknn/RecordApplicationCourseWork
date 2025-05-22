@@ -1,13 +1,13 @@
 package ui;
 
-import commands.Command;
-import commands.ExitItem;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import repository.DBManager;
 import repository.DBTableManager;
 import ui.serviceController.TablesNameListController;
@@ -64,8 +64,9 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private void exit() {
-        Command exitCommand = new ExitItem(scenePane);
-        exitCommand.execute();
+        Stage stage = (Stage) scenePane.getScene().getWindow();
+        System.out.println("You successfully exit");
+        stage.close();
     }
 
 }

@@ -1,7 +1,5 @@
 package ui;
 
-import commands.Command;
-import commands.DeleteItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,37 +26,36 @@ public class CollectionSceneController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
-    private TextField enterField;
+    TextField enterField;
     @FXML
-    private Button searchButton;
+    Button searchButton;
     @FXML
-    private Label tableNameLabel;
+    Label tableNameLabel;
     @FXML
-    private Label collectionDurationLabel;
+    Label collectionDurationLabel;
     @FXML
-    private ChoiceBox<String> findChoiceBox;
+    ChoiceBox<String> findChoiceBox;
     @FXML
-    private ChoiceBox<String> sortChoiceBox;
+    ChoiceBox<String> sortChoiceBox;
     @FXML
-    private AnchorPane scenePane;
+    AnchorPane scenePane;
     @FXML
-    private TableView<Record> tableView;
+    TableView<Record> tableView;
     @FXML
-    private TableColumn<Record, Integer> idColumn;
+    TableColumn<Record, Integer> idColumn;
     @FXML
-    private TableColumn<Record, String> titleColumn;
+    TableColumn<Record, String> titleColumn;
     @FXML
-    private TableColumn<Record, String> styleColumn;
+    TableColumn<Record, String> styleColumn;
     @FXML
-    private TableColumn<Record, String> durationColumn;
+    TableColumn<Record, String> durationColumn;
 
     private String tableName;
     private DBTableManager tableManager;
     private TableController tableController;
     private CollectionService collectionService;
 
-    public CollectionSceneController() {
-    }
+    public CollectionSceneController() {}
 
     public void initialize(String tableName, DBTableManager tableManager, TableController tableController, CollectionService collectionService) {
         this.tableName = tableName;
@@ -91,10 +88,7 @@ public class CollectionSceneController implements Initializable {
     public void clickOnDeleteButton(ActionEvent e) {
         Record selected = tableView.getSelectionModel().getSelectedItem();
         tableView.getItems().remove(selected);
-
-        Command delete = new DeleteItem(tableManager, selected, tableName);
-        delete.execute();
-
+        tableManager.deleteFromTableById(selected.getId(), tableName);
         refreshCollectionDuration();
     }
 
@@ -108,8 +102,6 @@ public class CollectionSceneController implements Initializable {
         FindController findController = new FindController(tableManager, tableName);
         String parameter = findChoiceBox.getValue();
         tableView.setItems(findController.findBy(parameter, enterField.getText()));
-//        RecordFinder recordFinder = new RecordFinder(recordRepository.selectAllFromDB("records"));
-//        tableView.setItems(findBy(findChoiceBox.getValue(), enterField.getText()));
     }
 
     public void clickOnSearchButton(ActionEvent e) {
@@ -131,4 +123,7 @@ public class CollectionSceneController implements Initializable {
         collectionDurationLabel.setText(collectionService.collectionDuration());
     }
 
+    public void setTableName(String testTable) {
+        this.tableName = testTable;
+    }
 }

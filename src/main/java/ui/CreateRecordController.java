@@ -1,7 +1,5 @@
 package ui;
 
-import commands.AddItem;
-import commands.Command;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -44,8 +42,9 @@ public class CreateRecordController {
         System.out.println("add button pressed");
         Record record = createRecord();
         if (record != null) {
-            Command add = new AddItem(repository, record, tableName);
-            add.execute();
+            repository.insertIntoTable(record, tableName);
+//            Command add = new AddItem(repository, record, tableName);
+//            add.execute();
         } else {
             System.out.println("Record is invalid or incomplete.");
         }

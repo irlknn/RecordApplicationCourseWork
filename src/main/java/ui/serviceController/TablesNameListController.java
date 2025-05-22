@@ -44,7 +44,7 @@ public class TablesNameListController {
         }
     }
 
-    private HBox gethBox(VBox tablesNameContainer, String tableName, SceneController sceneController) {
+    HBox gethBox(VBox tablesNameContainer, String tableName, SceneController sceneController) {
         Hyperlink tableLink = new Hyperlink(tableName);
         tableLink.setMaxWidth(Double.MAX_VALUE);
         tableLink.setOnAction(event -> sceneController.goToRecordCollectionScene(event, tableName));
@@ -54,7 +54,10 @@ public class TablesNameListController {
             dbManager.deleteTable(tableName);
             loadTablesName(tablesNameContainer); // оновити список
         });
-
+        HBox row = new HBox(10, deleteButton, tableLink);
+        row.setAlignment(Pos.CENTER_LEFT);
+        return row;
+    }
 //        deleteButton.setOnAction(event -> {
 //            ConfirmBanner.show(
 //                    "Підтвердження видалення",
@@ -67,10 +70,7 @@ public class TablesNameListController {
 //
 //        });
 
-        HBox row = new HBox(10, deleteButton, tableLink);
-        row.setAlignment(Pos.CENTER_LEFT);
-        return row;
-    }
+
 
     public void searchAndShowTables(String searchQuery, VBox tablesNameContainer) {
         SceneController sceneController = new SceneController();
