@@ -87,6 +87,9 @@ public class CollectionSceneController implements Initializable {
 
     public void clickOnDeleteButton(ActionEvent e) {
         Record selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            return; // або покажи попередження користувачу
+        }
         tableView.getItems().remove(selected);
         tableManager.deleteFromTableById(selected.getId(), tableName);
         refreshCollectionDuration();
@@ -110,7 +113,7 @@ public class CollectionSceneController implements Initializable {
     }
 
     public void clearFilters() {
-        tableController.showAll(tableView);
+        tableController.displayRecords(tableView);
     }
 
     public void back(ActionEvent e) {

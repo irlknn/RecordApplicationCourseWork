@@ -2,134 +2,109 @@ package repository;
 
 import javafx.collections.ObservableList;
 import models.Record;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-
+import org.junit.jupiter.api.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-class DBTableManagerTest {
-
+public class DBTableManagerTest {
+    private static final String TABLE_NAME = "test";
     private DBTableManager manager;
-    private Connection mockConnection;
-    private PreparedStatement mockPreparedStatement;
-    private Statement mockStatement;
-    private ResultSet mockResultSet;
-    private MockedStatic<DatabaseConnector> dbMock;
+    private Connection keepAliveConnection;  // Keep connection open
 
     @BeforeEach
-    void setUp() throws Exception {
+    public void setup() throws Exception {
+        new DatabaseConnector().setTestURL();
         manager = new DBTableManager();
-        mockConnection = mock(Connection.class);
-        mockPreparedStatement = mock(PreparedStatement.class);
-        mockStatement = mock(Statement.class);
-        mockResultSet = mock(ResultSet.class);
 
-        dbMock = mockStatic(DatabaseConnector.class);
-        dbMock.when(DatabaseConnector::getConnection).thenReturn(mockConnection);
-
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockConnection.createStatement()).thenReturn(mockStatement);
-        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
+        keepAliveConnection = DatabaseConnector.getConnection(); // Keep alive
+        try (Statement stmt = keepAliveConnection.createStatement()) {
+            stmt.execute("CREATE TABLE " + TABLE_NAME + " (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "title TEXT, style TEXT, duration TEXT)");
+        }
     }
 
     @AfterEach
-    void tearDown() {
-        dbMock.close();
+    public void tearDown() throws Exception {
+        if (keepAliveConnection != null && !keepAliveConnection.isClosed()) {
+            keepAliveConnection.close();
+        }
     }
 
     @Test
-    void testSelectAllFromTable_ReturnsRecords() throws Exception {
-        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true, false);
-        when(mockResultSet.getInt("id")).thenReturn(1);
-        when(mockResultSet.getString("title")).thenReturn("TestTitle");
-        when(mockResultSet.getString("style")).thenReturn("Jazz");
-        when(mockResultSet.getString("duration")).thenReturn("01:20");
-
-        ObservableList<Record> result = manager.selectAllFromTable("my_table");
-
-        assertEquals(1, result.size());
-        assertEquals("TestTitle", result.get(0).getTitle());
-    }
-
-    @Test
-    void testInsertIntoTable_CallsExecuteUpdate() throws Exception {
+    public void testInsertAndSelect() {
         Record record = new Record();
-        record.setTitle("Test");
+        record.setTitle("Song 1");
         record.setStyle("Rock");
-        record.setDuration(LocalTime.of(0, 1, 10));
+        record.setDuration(LocalTime.of(0, 5, 0));
 
-        when(mockPreparedStatement.executeUpdate()).thenReturn(1);
+        manager.insertIntoTable(record, TABLE_NAME);
+        ObservableList<Record> records = manager.selectAllFromTable(TABLE_NAME);
 
-        assertDoesNotThrow(() -> manager.insertIntoTable(record, "my_table"));
-
-        verify(mockPreparedStatement).setString(1, "Test");
-        verify(mockPreparedStatement).executeUpdate();
+        assertEquals(1, records.size());
+        assertEquals("Song 1", records.getFirst().getTitle());
+        assertEquals("Rock", records.getFirst().getStyle());
+        assertEquals((LocalTime.of(0, 5, 0)), records.getFirst().getDuration());
     }
 
     @Test
-    void testDeleteFromTableById_CallsExecuteUpdate() throws Exception {
-        when(mockPreparedStatement.executeUpdate()).thenReturn(1);
+    public void testDeleteById() {
+        Record record = new Record();
+        record.setTitle("ToDelete");
+        record.setStyle("Jazz");
+        record.setDuration(LocalTime.of(0, 4, 0));
 
-        assertDoesNotThrow(() -> manager.deleteFromTableById(1, "my_table"));
+        manager.insertIntoTable(record, TABLE_NAME);
+        int id = manager.selectAllFromTable(TABLE_NAME).get(0).getId();
 
-        verify(mockPreparedStatement).setInt(1, 1);
+        manager.deleteFromTableById(id, TABLE_NAME);
+
+        ObservableList<Record> records = manager.selectAllFromTable(TABLE_NAME);
+        assertTrue(records.isEmpty());
     }
 
-//    @Test
-//    void testFindByParameter_ReturnsRecords() throws Exception {
-//        when(mockResultSet.next()).thenReturn(true, false);
-//        when(mockResultSet.getInt("id")).thenReturn(2);
-//        when(mockResultSet.getString("title")).thenReturn("SearchTitle");
-//        when(mockResultSet.getString("style")).thenReturn("Pop");
-//        when(mockResultSet.getString("duration")).thenReturn("00:45");
-//
-//        ObservableList<Record> result = manager.findByParameter("my_table", "title", "Search");
-//
-//        assertEquals(1, result.size());
-//        assertEquals("SearchTitle", result.get(0).getTitle());
-//    }
+    @Test
+    public void testFindByParameter() {
+        Record record = new Record();
+        record.setTitle("FindMe");
+        record.setStyle("Electronic");
+        record.setDuration(LocalTime.of(0, 2, 0));
 
-//    @Test
-//    void testFindByDuration_ReturnsRecords() throws Exception {
-//        when(mockResultSet.next()).thenReturn(true, false);
-//        when(mockResultSet.getInt("id")).thenReturn(3);
-//        when(mockResultSet.getString("title")).thenReturn("TimeTest");
-//        when(mockResultSet.getString("style")).thenReturn("Rap");
-//        when(mockResultSet.getString("duration")).thenReturn("00:30");
-//
-//        ObservableList<Record> result = manager.findByDuration("my_table", "00:00", "01:00");
-//
-//        assertEquals(1, result.size());
-//        assertEquals("TimeTest", result.get(0).getTitle());
-//    }
+        manager.insertIntoTable(record, TABLE_NAME);
 
-//    @Test
-//    void testSortByParameter_ReturnsSortedRecords() throws Exception {
-//        when(mockResultSet.next()).thenReturn(true, false);
-//        when(mockResultSet.getInt("id")).thenReturn(5);
-//        when(mockResultSet.getString("title")).thenReturn("Sorted");
-//        when(mockResultSet.getString("style")).thenReturn("Techno");
-//        when(mockResultSet.getString("duration")).thenReturn("00:55");
-//
-//        ObservableList<Record> result = manager.sortByParameter("my_table", "title");
-//
-//        assertEquals(1, result.size());
-//        assertEquals("Sorted", result.get(0).getTitle());
-//    }
+        ObservableList<Record> results = manager.findByParameter(TABLE_NAME, "title", "Find");
+        assertEquals(1, results.size());
+        assertEquals("FindMe", results.get(0).getTitle());
+    }
 
     @Test
-    void testSelectAllFromTable_InvalidTable_ThrowsException() {
-        assertThrows(IllegalArgumentException.class,
-                () -> manager.selectAllFromTable("DROP"));
+    public void testFindByDuration() {
+        Record r1 = new Record(); r1.setTitle("Short"); r1.setStyle("Pop"); r1.setDuration(LocalTime.of(0, 1, 0));
+        Record r2 = new Record(); r2.setTitle("Medium"); r2.setStyle("Pop"); r2.setDuration(LocalTime.of(0, 12, 0));
+        Record r3 = new Record(); r3.setTitle("Long"); r3.setStyle("Pop"); r3.setDuration(LocalTime.of(0, 15, 0));
+
+        manager.insertIntoTable(r1, TABLE_NAME);
+        manager.insertIntoTable(r2, TABLE_NAME);
+        manager.insertIntoTable(r3, TABLE_NAME);
+
+        ObservableList<Record> results = manager.findByDuration(TABLE_NAME, "00:11:00", "00:13:00");
+        assertEquals(1, results.size());
+        assertEquals("Medium", results.get(0).getTitle());
+    }
+
+    @Test
+    public void testSortByParameter() {
+        Record r1 = new Record(); r1.setTitle("B Title"); r1.setStyle("Style1"); r1.setDuration(LocalTime.of(0, 3, 30));
+        Record r2 = new Record(); r2.setTitle("A Title"); r2.setStyle("Style2"); r2.setDuration(LocalTime.of(0, 3, 30));
+
+        manager.insertIntoTable(r1, TABLE_NAME);
+        manager.insertIntoTable(r2, TABLE_NAME);
+
+        ObservableList<Record> sorted = manager.sortByParameter(TABLE_NAME, "title");
+        assertEquals("A Title", sorted.get(0).getTitle());
+        assertEquals("B Title", sorted.get(1).getTitle());
     }
 }

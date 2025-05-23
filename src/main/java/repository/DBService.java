@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class DBService {
     private static final Logger logger = LogManager.getLogger(DBService.class);
+    private DBService(){}
 
     public static void validateTableName(String tableName) {
         if (tableName == null || tableName.trim().isEmpty()) {

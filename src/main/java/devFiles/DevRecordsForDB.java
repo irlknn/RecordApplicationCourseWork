@@ -1,42 +1,20 @@
-package repository;
+package devFiles;
 
 import models.Record;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import repository.DatabaseConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.List;
 
 import static utils.TimeUtils.changeTimeFormat;
 
-public class DBInitializer {
-    private static final Logger logger = LogManager.getLogger(DBInitializer.class);
-
-    public static void initializeDB() {
-        String sql = """
-                CREATE TABLE IF NOT EXISTS records(
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    title TEXT NOT NULL,
-                    style TEXT,
-                    duration TEXT NOT NULL
-                );
-                """;
-
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            logger.info("DB was connected");
-        } catch (SQLException e) {
-            logger.error("Error in creating DB");
-            throw new RuntimeException();
-        } catch (Exception e) {
-            logger.error("DB initialization error");
-        }
-    }
+public class DevRecordsForDB {
+    private static final Logger logger = LogManager.getLogger(DevRecordsForDB.class);
 
     public static void addData() {
         List<Record> records = List.of(

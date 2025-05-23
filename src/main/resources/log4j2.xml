@@ -10,21 +10,21 @@
             </Policies>
         </RollingFile>
 
-        <Smtp name="EmailAppender" subject="App Error"
-              to="log046.sender@gmail.com"
-              from="log046.sender@gmail.com"
-              smtpHost="smtp.gmail.com"
-              smtpPort="587"
-              smtpUsername="log046.sender@gmail.com"
-              smtpPassword="elvlclhrdretjijg"
-              smtpProtocol="smtp"
-              bufferSize="512"
-              ignoreExceptions="false">
+<!--        <Smtp name="EmailAppender" subject="App Error"-->
+<!--              to="log046.sender@gmail.com"-->
+<!--              from="log046.sender@gmail.com"-->
+<!--              smtpHost="smtp.gmail.com"-->
+<!--              smtpPort="587"-->
+<!--              smtpUsername="log046.sender@gmail.com"-->
+<!--              smtpPassword="elvlclhrdretjijg"-->
+<!--              smtpProtocol="smtp"-->
+<!--              bufferSize="512"-->
+<!--              ignoreExceptions="false">-->
 
-            <SMTPProperty key="mail.smtp.starttls.enable" value="true"/>
-            <SMTPProperty key="mail.smtp.auth" value="true"/>
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
-        </Smtp>
+<!--            <SMTPProperty key="mail.smtp.starttls.enable" value="true"/>-->
+<!--            <SMTPProperty key="mail.smtp.auth" value="true"/>-->
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>-->
+<!--        </Smtp>-->
 
 
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
@@ -37,19 +37,19 @@
         <Logger name="DBTableManager" level="debug" additivity="false">
             <AppenderRef ref="FileAppender"/>
             <AppenderRef ref="ConsoleAppender"/>
-            <AppenderRef ref="EmailAppender" level="error"/>
+<!--            <AppenderRef ref="EmailAppender" level="error"/>-->
         </Logger>
 
         <Logger name="DBManager" level="debug" additivity="false">
             <AppenderRef ref="FileAppender"/>
             <AppenderRef ref="ConsoleAppender"/>
-            <AppenderRef ref="EmailAppender" level="error"/>
+<!--            <AppenderRef ref="EmailAppender" level="error"/>-->
         </Logger>
 
         <Root level="info">
             <AppenderRef ref="FileAppender"/>
             <AppenderRef ref="ConsoleAppender"/>
-            <AppenderRef ref="EmailAppender" level="error"/>
+<!--            <AppenderRef ref="EmailAppender" level="error"/>-->
         </Root>
     </Loggers>
 </Configuration>

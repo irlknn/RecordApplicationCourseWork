@@ -30,8 +30,7 @@ public class TimeUtils {
             } catch (DateTimeParseException ignored) {
             }
         }
-
-        logger.error("Wrong time format {}", duration);
+        logger.error("Wrong time format");
         throw new IllegalArgumentException("Wrong time format in DB: " + duration);
     }
 

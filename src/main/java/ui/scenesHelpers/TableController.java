@@ -25,10 +25,10 @@ public class TableController {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         styleColumn.setCellValueFactory(new PropertyValueFactory<>("style"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        showAll(tableView);
+        displayRecords(tableView);
     }
 
-    public void showAll(TableView<Record> tableView) {
+    public void displayRecords(TableView<Record> tableView) {
         tableView.setItems(tableManager.selectAllFromTable(tableName));
     }
 }

@@ -17,7 +17,6 @@ public class DBTableManager {
     public ObservableList<Record> selectAllFromTable(String tableName) {
         validateTableName(tableName);
         ObservableList<Record> records = FXCollections.observableArrayList();
-        System.out.println("tableName = " + tableName);
 
         String sql = "SELECT * FROM " + tableName;
 
@@ -150,5 +149,4 @@ public class DBTableManager {
             throw new RuntimeException(e);
         }
     }
-
 }

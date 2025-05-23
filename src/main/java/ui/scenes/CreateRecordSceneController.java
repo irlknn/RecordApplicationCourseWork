@@ -17,11 +17,11 @@ public class CreateRecordSceneController {
     private String tableName;
 
     @FXML
-    private TextField titleField;
+    TextField titleField;
     @FXML
-    private TextField styleField;
+    TextField styleField;
     @FXML
-    private TextField durationField;
+    TextField durationField;
 
     public CreateRecordSceneController() {}
 
@@ -38,8 +38,6 @@ public class CreateRecordSceneController {
         Record record = createRecord();
         if (record != null) {
             repository.insertIntoTable(record, tableName);
-//            Command add = new AddItem(repository, record, tableName);
-//            add.execute();
         } else {
             System.out.println("Record is invalid or incomplete.");
         }

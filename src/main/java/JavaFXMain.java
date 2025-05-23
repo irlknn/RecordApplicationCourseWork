@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import repository.DBInitializer;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class JavaFXMain extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            DBInitializer.initializeDB();
+//            DBInitializer.initializeDB();
 //        DBInitializer.addData();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(MAIN_SCENE_FXML)));
             stage.setTitle(APP_TITLE);
