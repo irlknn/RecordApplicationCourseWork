@@ -1,4 +1,4 @@
-package ui.serviceController;
+package ui.scenesHelpers;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

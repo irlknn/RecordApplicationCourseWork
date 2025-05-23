@@ -1,4 +1,4 @@
-package ui.serviceController;
+package ui.scenesHelpers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.DBTableManager;
-import ui.CollectionSceneController;
-import ui.CreateRecordController;
+import ui.scenes.CollectionSceneController;
+import ui.scenes.CreateRecordSceneController;
 import utils.CollectionService;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class SceneController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(STYLES_CSS)).toExternalForm());
             stage.show();
         } catch (IOException e) {
             logger.error("problem with creating and loading record collection scene for {}", tableName);
@@ -53,7 +53,7 @@ public class SceneController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(STYLES_CSS)).toExternalForm());
             stage.show();
         } catch (IOException e) {
             logger.error("problem with switching to main scene");
@@ -67,14 +67,14 @@ public class SceneController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(CREATE_RECORD_SCENE_FXML));
             Parent root = loader.load();
 
-            CreateRecordController controller = loader.getController();
+            CreateRecordSceneController controller = loader.getController();
             controller.setRepository(repository);
             controller.setTableName(tableName);
 
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource(STYLES_CSS)).toExternalForm());
             stage.show();
         } catch (IOException ex) {
             logger.error("problem with switching to create record scene");

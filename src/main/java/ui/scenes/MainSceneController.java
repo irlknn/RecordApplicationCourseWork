@@ -1,4 +1,4 @@
-package ui;
+package ui.scenes;
 
 
 import javafx.fxml.FXML;
@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import repository.DBManager;
 import repository.DBTableManager;
-import ui.serviceController.TablesNameListController;
+import ui.scenesHelpers.TablesNameListController;
 
 import java.net.URL;
 import java.util.ResourceBundle;

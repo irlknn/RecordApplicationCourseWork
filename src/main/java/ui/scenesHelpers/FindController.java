@@ -1,4 +1,4 @@
-package ui.serviceController;
+package ui.scenesHelpers;
 
 import javafx.collections.ObservableList;
 import models.Record;

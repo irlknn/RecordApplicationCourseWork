@@ -1,4 +1,4 @@
-package ui.serviceController;
+package ui.scenesHelpers;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -71,7 +71,6 @@ public class TablesNameListController {
 //        });
 
 
-
     public void searchAndShowTables(String searchQuery, VBox tablesNameContainer) {
         SceneController sceneController = new SceneController();
 
@@ -82,15 +81,13 @@ public class TablesNameListController {
             while (tables.next()) {
                 String tableName = tables.getString("TABLE_NAME");
                 if (tableName.toLowerCase().contains(searchQuery.toLowerCase())) {
-
                     HBox row = gethBox(tablesNameContainer, tableName, sceneController);
                     tablesNameContainer.getChildren().add(row);
-
-//                    tablesNameContainer.getChildren().add(tableLink);
+                    logger.error("Collection with name like {} was found", searchQuery);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // або logger.error
+            logger.error("Failed to search collection {}", searchQuery);
         }
     }
 

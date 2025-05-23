@@ -1,4 +1,4 @@
-package ui;
+package ui.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,10 +7,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import models.Record;
 import repository.DBTableManager;
-import ui.serviceController.FindController;
-import ui.serviceController.SceneController;
-import ui.serviceController.SortController;
-import ui.serviceController.TableController;
+import ui.scenesHelpers.FindController;
+import ui.scenesHelpers.SceneController;
+import ui.scenesHelpers.SortController;
+import ui.scenesHelpers.TableController;
 import utils.CollectionService;
 
 import java.net.URL;
@@ -19,12 +19,6 @@ import java.util.ResourceBundle;
 
 public class CollectionSceneController implements Initializable {
     private final String[] filterParameters = {"title", "style", "duration"};
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button exitButton;
     @FXML
     TextField enterField;
     @FXML
@@ -49,13 +43,19 @@ public class CollectionSceneController implements Initializable {
     TableColumn<Record, String> styleColumn;
     @FXML
     TableColumn<Record, String> durationColumn;
-
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button exitButton;
     private String tableName;
     private DBTableManager tableManager;
     private TableController tableController;
     private CollectionService collectionService;
 
-    public CollectionSceneController() {}
+    public CollectionSceneController() {
+    }
 
     public void initialize(String tableName, DBTableManager tableManager, TableController tableController, CollectionService collectionService) {
         this.tableName = tableName;

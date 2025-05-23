@@ -1,4 +1,4 @@
-package ui;
+package ui.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,12 +7,12 @@ import models.Record;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import repository.DBTableManager;
-import ui.serviceController.SceneController;
+import ui.scenesHelpers.SceneController;
 
 import static utils.TimeUtils.changeTimeFormat;
 
-public class CreateRecordController {
-    private static final Logger logger = LogManager.getLogger(CreateRecordController.class);
+public class CreateRecordSceneController {
+    private static final Logger logger = LogManager.getLogger(CreateRecordSceneController.class);
     private DBTableManager repository;
     private String tableName;
 
@@ -23,12 +23,7 @@ public class CreateRecordController {
     @FXML
     private TextField durationField;
 
-    public CreateRecordController(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public CreateRecordController() {
-    }
+    public CreateRecordSceneController() {}
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
