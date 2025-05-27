@@ -1,169 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="scenePane"
-            xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.ui.scenes.CollectionSceneController">
+            xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.ui.scenes.CollectionSceneController"
+            styleClass="scene-pane">
     <children>
-        <VBox prefHeight="600.0" prefWidth="900.0">
+        <VBox prefHeight="600.0" prefWidth="900.0" spacing="0" styleClass="main-container">
             <children>
-                <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0"
-                           VBox.vgrow="ALWAYS">
-                    <items>
-                        <AnchorPane id="Content" fx:id="tableAnchorPane" minHeight="-1.0" minWidth="-1.0"
-                                    prefHeight="595.0" prefWidth="644.0">
+                <!-- Header Section -->
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" styleClass="header-section" VBox.vgrow="NEVER">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" styleClass="header-info" HBox.hgrow="ALWAYS">
                             <children>
-                                <HBox alignment="CENTER" layoutX="7.0" layoutY="51.0" prefHeight="50.0"
-                                      prefWidth="630.0">
-                                    <children>
-                                        <TextField fx:id="enterField" prefHeight="40.0" prefWidth="194.0">
-                                            <HBox.margin>
-                                                <Insets left="15.0" right="15.0"/>
-                                            </HBox.margin>
-                                        </TextField>
-                                        <ChoiceBox fx:id="findChoiceBox" maxWidth="157.0" prefHeight="0.0"
-                                                   prefWidth="128.0">
-                                            <cursor>
-                                                <Cursor fx:constant="HAND"/>
-                                            </cursor>
-                                            <HBox.margin>
-                                                <Insets left="15.0" right="15.0"/>
-                                            </HBox.margin>
-                                        </ChoiceBox>
-                                        <Button fx:id="searchButton" maxWidth="85.0" mnemonicParsing="false"
-                                                onAction="#clickOnSearchButton" prefHeight="26.0" prefWidth="85.0"
-                                                text="search">
-                                            <HBox.margin>
-                                                <Insets left="15.0" right="15.0"/>
-                                            </HBox.margin>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                                <Label fx:id="tableNameLabel" alignment="CENTER" layoutX="47.0" layoutY="23.0"
-                                       prefHeight="23.0" style="&#10;" text="&gt; " textAlignment="CENTER"
-                                       wrapText="false" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="20.0">
-                                    <font>
-                                        <Font size="18.0" fx:id="x1"/>
-                                    </font>
-                                    <textFill>
-                                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x2"/>
-                                    </textFill>
-                                </Label>
-                                <Label fx:id="collectionDurationLabel" alignment="CENTER" layoutX="434.0" layoutY="23.0"
-                                       prefHeight="23.0" style="&#10;" text="&gt;" textAlignment="CENTER"
-                                       wrapText="false" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
-                                    <font>
-                                        <Font size="18.0" fx:id="x11"/>
-                                    </font>
-                                    <textFill>
-                                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x21"/>
-                                    </textFill>
-                                </Label>
-                                <TableView fx:id="tableView" layoutX="7.0" layoutY="123.0" maxWidth="1000.0"
-                                           prefHeight="471.0" prefWidth="630.0" AnchorPane.leftAnchor="5.0"
-                                           AnchorPane.rightAnchor="5.0">
-                                    <columns>
-                                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID"/>
-                                        <TableColumn fx:id="titleColumn" prefWidth="185.0" text="title"/>
-                                        <TableColumn fx:id="styleColumn" prefWidth="185.0" text="style"/>
-                                        <TableColumn fx:id="durationColumn" prefWidth="185.0" text="duration"/>
-                                    </columns>
-                                </TableView>
+                                <Label fx:id="tableNameLabel" text="Collection Name"
+                                       styleClass="collection-title-label"/>
+                                <Label fx:id="collectionDurationLabel" text="Total Duration"
+                                       styleClass="collection-duration-label"/>
                             </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="menuAnchorPane" maxWidth="250.0" prefHeight="595.0" prefWidth="250.0">
+                            <HBox.margin>
+                                <Insets left="30.0"/>
+                            </HBox.margin>
+                        </VBox>
+
+                        <!-- Search Section -->
+                        <HBox alignment="CENTER" spacing="10" styleClass="search-section">
                             <children>
-                                <Label alignment="CENTER" layoutX="102.0" layoutY="41.0" style="&#10;" text="menu"
-                                       textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="101.0"
-                                       AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="40.0">
-                                    <font>
-                                        <Font size="18.0" fx:id="x5"/>
-                                    </font>
-                                    <textFill>
-                                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x6"/>
-                                    </textFill>
-                                </Label>
-                                <VBox alignment="CENTER" layoutX="42.0" layoutY="92.0" prefHeight="206.0"
-                                      prefWidth="166.0">
-                                    <children>
-                                        <Button fx:id="addButton" graphicTextGap="5.0" mnemonicParsing="false"
-                                                onAction="#clickOnAddButton" prefHeight="26.0" prefWidth="165.0"
-                                                text="add" textAlignment="CENTER">
-                                            <cursor>
-                                                <Cursor fx:constant="HAND"/>
-                                            </cursor>
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0"/>
-                                            </VBox.margin>
-                                        </Button>
-                                        <Button fx:id="deleteButton" graphicTextGap="5.0" mnemonicParsing="false"
-                                                onAction="#clickOnDeleteButton" prefHeight="26.0" prefWidth="165.0"
-                                                text="delete">
-                                            <cursor>
-                                                <Cursor fx:constant="HAND"/>
-                                            </cursor>
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0"/>
-                                            </VBox.margin>
-                                        </Button>
-                                        <ChoiceBox fx:id="sortChoiceBox" prefHeight="26.0" prefWidth="163.0">
-                                            <cursor>
-                                                <Cursor fx:constant="HAND"/>
-                                            </cursor>
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0"/>
-                                            </VBox.margin>
-                                        </ChoiceBox>
-                                        <Button mnemonicParsing="false" onAction="#clearFilters" prefHeight="26.0"
-                                                prefWidth="182.0" text="clear filters">
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0"/>
-                                            </VBox.margin>
-                                        </Button>
-                                    </children>
+                                <TextField fx:id="enterField" prefHeight="35.0" prefWidth="200.0"
+                                           promptText="Search records..." styleClass="search-field"/>
+                                <ChoiceBox fx:id="findChoiceBox" prefHeight="35.0" prefWidth="120.0"
+                                           styleClass="search-choice-box">
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>
+                                </ChoiceBox>
+                                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#clickOnSearchButton"
+                                        prefHeight="35.0" prefWidth="80.0" text="Search"
+                                        styleClass="search-button">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Button>
+                            </children>
+                            <HBox.margin>
+                                <Insets right="30.0"/>
+                            </HBox.margin>
+                        </HBox>
+                    </children>
+                </HBox>
+
+                <SplitPane dividerPositions="0.75" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0"
+                           VBox.vgrow="ALWAYS" styleClass="main-split-pane">
+                    <items>
+                        <!-- Main Content Area -->
+                        <AnchorPane fx:id="contentAnchorPane" styleClass="content-pane">
+                            <children>
+                                <ScrollPane fx:id="recordsScrollPane" fitToWidth="true" fitToHeight="true"
+                                            styleClass="records-scroll-pane"
+                                            AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
+                                            AnchorPane.topAnchor="15.0" AnchorPane.bottomAnchor="15.0">
+                                    <content>
+                                        <VBox fx:id="recordsContainer" spacing="12"
+                                              styleClass="records-container">
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </AnchorPane>
+
+                        <!-- Sidebar Menu -->
+                        <AnchorPane fx:id="menuAnchorPane" prefWidth="220.0"
+                                    styleClass="sidebar-menu">
+                            <children>
+                                <VBox alignment="TOP_CENTER" spacing="20" styleClass="sidebar-content"
+                                      AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+                                    <children>
+                                        <Label text="Actions" styleClass="sidebar-section-title"/>
+
+                                        <VBox spacing="12" prefWidth="180.0" styleClass="action-buttons-container">
+                                            <children>
+                                                <Button fx:id="addButton" mnemonicParsing="false" onAction="#clickOnAddButton"
+                                                        prefHeight="40.0" maxWidth="Infinity" text="Add Record"
+                                                        styleClass="add-record-button">
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                </Button>
+
+                                                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#clickOnDeleteButton"
+                                                        prefHeight="40.0" maxWidth="Infinity" text="Delete Selected"
+                                                        styleClass="delete-record-button">
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+
+                                        <Separator prefWidth="180.0" styleClass="sidebar-separator"/>
+
+                                        <Label text="Sort Filter" styleClass="sidebar-subsection-title"/>
+
+                                        <VBox spacing="12" prefWidth="180.0" styleClass="filter-controls-container">
+                                            <children>
+                                                <Label text="Sort by:" styleClass="filter-label"/>
+                                                <ChoiceBox fx:id="sortChoiceBox" prefHeight="35.0" maxWidth="Infinity"
+                                                           styleClass="sort-choice-box">
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                </ChoiceBox>
+
+                                                <Button mnemonicParsing="false" onAction="#clearFilters"
+                                                        prefHeight="35.0" maxWidth="Infinity" text="Clear Filters"
+                                                        styleClass="clear-filters-button">
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
                                 </VBox>
-                                <Button fx:id="exitButton" graphicTextGap="5.0" layoutX="43.0" layoutY="481.0"
-                                        mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="165.0"
-                                        text="back" AnchorPane.bottomAnchor="80.0">
+
+                                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#back"
+                                        prefHeight="40.0" prefWidth="180.0" text="← Back"
+                                        styleClass="back-button"
+                                        AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>

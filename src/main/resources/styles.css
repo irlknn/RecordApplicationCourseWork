@@ -400,3 +400,87 @@
 .button, .text-field, .choice-box {
     -fx-transition: all 0.2s ease;
 }
+
+/* JavaFX CSS Stylesheet for Record Collection Application */
+
+/* Scene background */
+.scene-pane {
+    -fx-background-color: #f8f9fa;
+}
+
+/* Main container */
+.main-container {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+/* Header Section */
+.header-section {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-info {
+    -fx-spacing: 5;
+}
+
+.collection-title-label {
+    -fx-text-fill: #212529;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.collection-duration-label {
+    -fx-text-fill: #6c757d;
+    -fx-font-size: 14px;
+}
+
+.search-section {
+    -fx-spacing: 10;
+}
+
+.search-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+
+.search-choice-box {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.search-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+}
+
+.search-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+/* Split Pane */
+.main-split-pane {
+    -fx-background-color: transparent;
+}
+
+/* Content Pane */
+.content-pane {
+    -fx-background-color: #f8f9fa;
+}
+
+.records-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.records-container {
+    -fx-background-color: transparent;
