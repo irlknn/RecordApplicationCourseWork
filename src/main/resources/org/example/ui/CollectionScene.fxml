@@ -105,8 +105,6 @@
 
                                         <Separator prefWidth="180.0" styleClass="sidebar-separator"/>
 
-                                        <Label text="Sort Filter" styleClass="sidebar-subsection-title"/>
-
                                         <VBox spacing="12" prefWidth="180.0" styleClass="filter-controls-container">
                                             <children>
                                                 <Label text="Sort by:" styleClass="filter-label"/>

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Objects;
 
+import static org.example.devFiles.DevRecordsForDB.addData;
 import static org.example.ui.UIConstants.*;
 
 public class JavaFXMain extends Application {
@@ -23,6 +24,7 @@ public class JavaFXMain extends Application {
     @Override
     public void start(Stage stage) {
         try {
+
 //            logger.error("Test error email, This is a test exception");
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(MAIN_SCENE_FXML)));
