@@ -33,7 +33,7 @@ public class MainSceneControllerTest {
     }
 
     @Test
-    void testCreateTable(FxRobot robot) {
+    void testCreateCollection(FxRobot robot) {
         robot.clickOn("#newTableName").write("test_table");
         robot.clickOn("#crateButton");
 

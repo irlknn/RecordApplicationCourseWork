@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.repository.DBManager;
+import org.example.repository.DBCollectionManager;
 import org.example.ui.scenesHelpers.TablesNameListController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class MainSceneController implements Initializable {
     @FXML
     private TextField newTableName;
 
-    private DBManager dbManager = new DBManager();
+    private DBCollectionManager dbcollectioManager = new DBCollectionManager();
     private TablesNameListController tablesNameListController = new TablesNameListController();
 
     @Override
@@ -43,10 +43,10 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    private void createTable() {
+    private void createCollection() {
         String name = newTableName.getText();
         if (name != null) {
-            dbManager.createTable(name);
+            dbcollectioManager.insertCollection(name);
             tablesNameListController.loadTablesName(tablesNameContainer);
         }
     }
