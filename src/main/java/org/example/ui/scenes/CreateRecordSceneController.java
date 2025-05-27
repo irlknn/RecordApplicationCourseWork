@@ -2,6 +2,7 @@ package org.example.ui.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.models.Record;
 import org.example.repository.DBTableManager;
@@ -13,12 +14,16 @@ import static org.example.utils.TimeUtils.changeTimeFormat;
 
 public class CreateRecordSceneController {
     private static final Logger logger = LoggerFactory.getLogger(CreateRecordSceneController.class);
+
     @FXML
-    TextField titleField;
+    private TextField titleField;
     @FXML
-    TextField styleField;
+    private TextField styleField;
     @FXML
-    TextField durationField;
+    private TextField durationField;
+    @FXML
+    private Label notificationLabel;
+
     private DBTableManager repository;
     private String tableName;
 
@@ -37,9 +42,28 @@ public class CreateRecordSceneController {
         Record record = createRecord();
         if (record != null) {
             repository.insertIntoTable(record, tableName);
+            showSuccess("Record created successfully!");
+            clearFields();
         } else {
-            System.out.println("Record is invalid or incomplete.");
+            showError("Record is invalid or incomplete. Please check all fields.");
         }
+    }
+
+    private void showSuccess(String message) {
+        notificationLabel.setStyle("-fx-text-fill: #2d8345; -fx-font-size: 14px;");
+        notificationLabel.setText(message);
+    }
+
+    private void showError(String message) {
+        notificationLabel.setStyle("-fx-text-fill: #dc3545; -fx-font-size: 14px;");
+        notificationLabel.setText(message);
+    }
+
+    private void clearFields() {
+        titleField.clear();
+        styleField.clear();
+        durationField.clear();
+        titleField.requestFocus();
     }
 
     public Record createRecord() {
@@ -47,8 +71,9 @@ public class CreateRecordSceneController {
         String style = styleField.getText();
         String duration = durationField.getText();
 
-        if (title == null || style == null || duration == null || title.isEmpty() || style.isEmpty() || duration.isEmpty()) {
-            System.out.println("Please, enter all data");
+        if (title == null || style == null || duration == null ||
+                title.trim().isEmpty() || style.trim().isEmpty() || duration.trim().isEmpty()) {
+            showError("Please enter all data");
             return null;
         }
 
@@ -56,6 +81,7 @@ public class CreateRecordSceneController {
             return new Record(title, style, changeTimeFormat(duration));
         } catch (Exception e) {
             logger.error("Create record error title - {}, style - {}, duration - {}", title, style, duration);
+            showError("Invalid duration format. Please use MM:SS format.");
             return null;
         }
     }
@@ -63,7 +89,6 @@ public class CreateRecordSceneController {
     @FXML
     public void goToProgramUI(ActionEvent e) {
         SceneController sceneController = new SceneController();
-        System.out.println(tableName);
         sceneController.goToRecordCollectionScene(e, tableName);
     }
 }

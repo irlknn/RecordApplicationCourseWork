@@ -671,6 +671,69 @@
     -fx-background-insets: 0;
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
+
+/* Add these new styles to your existing CSS file */
+
+/* Notification Label Styling */
+.notification-label {
+    -fx-padding: 8px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+    -fx-min-height: 30px;
+}
+
+/* Form Grid Styling */
+.form-grid {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 4, 0, 0, 1);
+}
+
+.form-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+/* Form Field Container */
+.form-field {
+    -fx-spacing: 8px;
+    -fx-padding: 8px 0;
+}
+
+/* Enhanced TextField styling for forms */
+.form-grid .text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+}
+
+.form-grid .text-field:focused {
+    -fx-border-color: #425cb1;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(66,92,177,0.25), 0, 0, 0, 0);
+}
+
+/* Submit Button Container */
+.button-container {
+    -fx-alignment: center;
+    -fx-padding: 20px 0;
+    -fx-spacing: 10px;
+}
+
+/* Form Section Title */
+.form-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #343a40;
+    -fx-padding: 0 0 20px 0;
+}

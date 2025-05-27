@@ -35,7 +35,7 @@
                                     </textFill>
                                 </Label>
                                 <GridPane layoutX="102.0" layoutY="93.0" prefHeight="242.0" prefWidth="438.0"
-                                          vgap="30.0" AnchorPane.topAnchor="93.0">
+                                          vgap="30.0" AnchorPane.topAnchor="93.0" styleClass="form-grid">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0"/>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.79999389648435"
@@ -47,20 +47,20 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label prefHeight="18.0" prefWidth="63.0" text="Title">
+                                        <Label prefHeight="18.0" prefWidth="63.0" text="Title" styleClass="form-label">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </Label>
                                         <TextField fx:id="titleField" prefWidth="239.0" GridPane.columnIndex="1"/>
-                                        <Label text="Style" GridPane.rowIndex="1">
+                                        <Label text="Style" GridPane.rowIndex="1" styleClass="form-label">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
                                         </Label>
                                         <TextField fx:id="styleField" prefWidth="239.0" GridPane.columnIndex="1"
                                                    GridPane.rowIndex="1"/>
-                                        <Label text="Duration" GridPane.rowIndex="2">
+                                        <Label text="Duration" GridPane.rowIndex="2" styleClass="form-label">
                                             <font>
                                                 <Font size="14.0"/>
                                             </font>
@@ -69,9 +69,12 @@
                                                    GridPane.rowIndex="2"/>
                                     </children>
                                 </GridPane>
-                                <Button fx:id="submitButton" graphicTextGap="5.0" layoutX="263.0" layoutY="363.0"
-                                        mnemonicParsing="false" onAction="#clickOnSubmitButton" prefHeight="26.0"
-                                        prefWidth="165.0" text="submit" AnchorPane.topAnchor="363.0"/>
+                                <VBox alignment="CENTER" spacing="20" layoutX="102.0" layoutY="363.0" prefWidth="438.0">
+                                    <Button fx:id="submitButton" graphicTextGap="5.0"
+                                            mnemonicParsing="false" onAction="#clickOnSubmitButton"
+                                            prefHeight="26.0" prefWidth="165.0" text="submit"/>
+                                    <Label fx:id="notificationLabel" styleClass="notification-label"/>
+                                </VBox>
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="menuAnchorPane" maxWidth="250.0" prefWidth="200.0">
