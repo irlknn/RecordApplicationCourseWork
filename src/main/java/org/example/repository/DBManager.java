@@ -22,7 +22,9 @@ public class DBManager {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     title TEXT NOT NULL,
                     style TEXT,
-                    duration TEXT NOT NULL
+                    duration TEXT NOT NULL,
+                    author TEXT,
+                    description TEXT
                 );
                 """;
 

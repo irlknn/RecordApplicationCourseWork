@@ -78,7 +78,7 @@ public class CreateRecordSceneController {
         }
 
         try {
-            return new Record(title, style, changeTimeFormat(duration));
+            return new Record(title, style, changeTimeFormat(duration), "", "");
         } catch (Exception e) {
             logger.error("Create record error title - {}, style - {}, duration - {}", title, style, duration);
             showError("Invalid duration format. Please use MM:SS format.");
