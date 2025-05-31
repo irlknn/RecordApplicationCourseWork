@@ -66,9 +66,31 @@
                                             AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
                                             AnchorPane.topAnchor="15.0" AnchorPane.bottomAnchor="15.0">
                                     <content>
-                                        <VBox fx:id="recordsContainer" spacing="12"
-                                              styleClass="records-container">
+<!--                                        <VBox fx:id="recordsContainer" spacing="12"-->
+<!--                                              styleClass="records-container">-->
+<!--                                        </VBox>-->
+                                        <VBox fx:id="recordsContainer" alignment="TOP_LEFT" spacing="10" styleClass="record-card">
+                                            <!-- Existing fields like title, duration, etc. -->
+
+                                            <!-- Duration label -->
+                                            <Label fx:id="durationLabel" text="Duration: 3:30" />
+
+                                            <!-- More button -->
+                                            <Button text="More" onAction="#handleMoreButtonClick" />
+
+                                            <!-- Hidden banner initially -->
+                                            <AnchorPane fx:id="moreInfoBanner" visible="false" managed="false"
+                                                        style="-fx-background-color: #f1f3f5; -fx-padding: 10; -fx-border-color: #adb5bd; -fx-border-radius: 5;">
+                                                <VBox spacing="5">
+                                                    <HBox alignment="TOP_RIGHT">
+                                                        <Button text="X" onAction="#handleCloseMoreInfo" style="-fx-background-color: transparent; -fx-font-weight: bold;" />
+                                                    </HBox>
+                                                    <Label fx:id="authorLabel" text="Author: ..." />
+                                                    <Label fx:id="descriptionLabel" text="Description: ..." wrapText="true"/>
+                                                </VBox>
+                                            </AnchorPane>
                                         </VBox>
+
                                     </content>
                                 </ScrollPane>
                             </children>

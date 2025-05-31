@@ -73,7 +73,7 @@
    ======================================== */
 .hyperlink {
     -fx-text-fill: #000000;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-font-weight: 500;
     -fx-underline: false;
     -fx-border-color: transparent;
@@ -345,4 +345,29 @@
 /* Animation for smooth transitions */
 .button, .text-field, .choice-box {
     -fx-transition: all 0.2s ease;
+}
+
+.record-style-box {
+    -fx-spacing: 6;
+}
+
+.more-button{
+    -fx-text-fill: #000000;
+    -fx-font-weight: 500;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 32px;
+}
+
+.more-button:hover {
+    -fx-text-fill: #212529;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.more-info-banner {
+    -fx-background-color: #f1f3f5;
+    -fx-padding: 10;
+    -fx-border-color: #adb5bd;
+    -fx-border-radius: 5;
 }

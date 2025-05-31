@@ -29,6 +29,8 @@ public class DBTableManager {
                 record.setTitle(rs.getString("title"));
                 record.setStyle(rs.getString("style"));
                 record.setDuration(changeTimeFormat(rs.getString("duration")));
+                record.setAuthor(rs.getString("author"));
+                record.setDescription(rs.getString("description"));
                 records.add(record);
             }
             logger.info("Loaded {} records from db", records.size());
@@ -149,4 +151,5 @@ public class DBTableManager {
             throw new RuntimeException(e);
         }
     }
+
 }

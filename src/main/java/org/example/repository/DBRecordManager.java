@@ -12,6 +12,11 @@ import org.example.models.Style;
 import static org.example.utils.TimeUtils.changeTimeFormat;
 
 public class DBRecordManager {
+    /**
+     * Insert record in database
+     * @param record - new record to insert in database
+     * @return -1 - in case of error
+     */
     public int insertRecord(Record record) {
         String sql = "INSERT INTO records (title, duration) VALUES (?, ?)";
         try (Connection connection = DatabaseConnector.getConnection();
