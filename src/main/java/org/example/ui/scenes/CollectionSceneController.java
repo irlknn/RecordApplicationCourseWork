@@ -3,15 +3,9 @@ package org.example.ui.scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.collections.ObservableList;
 import org.example.models.Record;
 import org.example.repository.DBTableManager;
@@ -24,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class CollectionSceneController implements Initializable {
     private final String[] filterParameters = {"title", "style", "duration"};
+    public TableView<Record> tableView;
 
     @FXML
     TextField enterField;
@@ -46,15 +41,15 @@ public class CollectionSceneController implements Initializable {
     @FXML
     private Button addButton;
     @FXML
-    private Button deleteButton;
+    Button deleteButton;
     @FXML
     private Button exitButton;
 
-    private String tableName;
+    String tableName;
     private DBTableManager tableManager;
     private TableController tableController;
     private CollectionService collectionService;
-    private Record selectedRecord;
+    Record selectedRecord;
 
     public CollectionSceneController() {
     }

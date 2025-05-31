@@ -16,13 +16,17 @@ public class CreateRecordSceneController {
     private static final Logger logger = LoggerFactory.getLogger(CreateRecordSceneController.class);
 
     @FXML
-    private TextField titleField;
+    TextField titleField;
     @FXML
-    private TextField styleField;
+    TextField styleField;
     @FXML
-    private TextField durationField;
+    TextField durationField;
     @FXML
-    private Label notificationLabel;
+    TextField authorField;
+    @FXML
+    TextField descriptionField;
+    @FXML
+    Label notificationLabel;
 
     private DBTableManager repository;
     private String tableName;
@@ -63,6 +67,8 @@ public class CreateRecordSceneController {
         titleField.clear();
         styleField.clear();
         durationField.clear();
+        authorField.clear();
+        descriptionField.clear();
         titleField.requestFocus();
     }
 
@@ -70,17 +76,19 @@ public class CreateRecordSceneController {
         String title = titleField.getText();
         String style = styleField.getText();
         String duration = durationField.getText();
+        String author = authorField.getText();
+        String description = descriptionField.getText();
 
         if (title == null || style == null || duration == null ||
-                title.trim().isEmpty() || style.trim().isEmpty() || duration.trim().isEmpty()) {
+                title.trim().isEmpty() || style.trim().isEmpty() || duration.trim().isEmpty() || author.trim().isEmpty() || description.trim().isEmpty()) {
             showError("Please enter all data");
             return null;
         }
 
         try {
-            return new Record(title, style, changeTimeFormat(duration), "", "");
+            return new Record(title, style, changeTimeFormat(duration), author, description);
         } catch (Exception e) {
-            logger.error("Create record error title - {}, style - {}, duration - {}", title, style, duration);
+            logger.error("Create record error title - {}, style - {}, duration - {}, author - {}, description - {}", title, style, duration, author, description);
             showError("Invalid duration format. Please use MM:SS format.");
             return null;
         }

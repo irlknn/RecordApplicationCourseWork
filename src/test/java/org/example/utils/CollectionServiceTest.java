@@ -14,9 +14,9 @@ class CollectionServiceTest {
     @Test
     void testCollectionDuration_withMultipleRecords() {
         ObservableList<Record> records = FXCollections.observableArrayList(
-                new Record("Rock", "Title1", LocalTime.of(0, 2, 30)),
-                new Record("Jazz", "Title2", LocalTime.of(0, 1, 15)),
-                new Record("Pop", "Title3", LocalTime.of(0, 3, 45))
+                new Record("Rock", "Title1", LocalTime.of(0, 2, 30), "author" ,"description"),
+                new Record("Jazz", "Title2", LocalTime.of(0, 1, 15), "author" ,"description"),
+                new Record("Pop", "Title3", LocalTime.of(0, 3, 45), "author" ,"description")
         );
 
         CollectionService service = new CollectionService(records);
