@@ -39,7 +39,7 @@
                                             AnchorPane.bottomAnchor="23.399999999999977" AnchorPane.leftAnchor="24.0"
                                             AnchorPane.rightAnchor="26.399999999999977" AnchorPane.topAnchor="127.0">
                                     <content>
-                                        <VBox fx:id="tablesNameContainer" spacing="5.0">
+                                        <VBox fx:id="collectionsNameContainer" spacing="5.0">
                                             <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                             </padding>
@@ -78,7 +78,7 @@
                                             </VBox.margin>
                                             <buttons>
                                                 <TextField fx:id="newTableName" prefHeight="26.0"/>
-                                                <Button fx:id="crateButton" graphicTextGap="5.0" maxWidth="80.0"
+                                                <Button fx:id="createButton" graphicTextGap="5.0" maxWidth="80.0"
                                                         minWidth="69.0" mnemonicParsing="false" onAction="#createCollection"
                                                         prefHeight="26.0" prefWidth="80.0" text="create"
                                                         textAlignment="CENTER" textFill="#348157">

@@ -16,7 +16,7 @@ public class DBCollectionManager {
      * @param name - collection name
      */
     public int insertCollection(String name) {
-        String sql = "INSERT INTO collections VALUES (?)";
+        String sql = "INSERT INTO collections (name) VALUES (?)";
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, name);
@@ -54,6 +54,30 @@ public class DBCollectionManager {
         logger.error("Problem in getting collections ");
         }
         return list;
+    }
+
+    public String getCollectionNameById(int id)
+    {
+        String sql = "SELECT name FROM collections WHERE id = ?";
+        String collectionName = "";
+        try (Connection connection = DatabaseConnector.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql))
+        {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    collectionName = rs.getString("name");
+                } else {
+                    logger.error("Failed to find name");
+                    return "";
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            logger.error("Failed to get name from db");
+        }
+        return collectionName;
     }
 
     /**

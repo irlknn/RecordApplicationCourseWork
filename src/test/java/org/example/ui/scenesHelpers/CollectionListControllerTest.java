@@ -19,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TablesNameListControllerTest {
+public class CollectionListControllerTest {
 
-    private TablesNameListController controller;
+    private CollectionListController controller;
     private VBox vbox;
 
     @BeforeAll
@@ -33,12 +33,12 @@ public class TablesNameListControllerTest {
 
     @BeforeEach
     public void setup() {
-        controller = new TablesNameListController();
+        controller = new CollectionListController();
         vbox = new VBox();
     }
 
     @Test
-    public void testLoadTablesName() throws Exception {
+    public void testLoadCollectionsName() throws Exception {
         try (
                 MockedStatic<DatabaseConnector> mockedStatic = Mockito.mockStatic(DatabaseConnector.class)
         ) {
@@ -55,7 +55,7 @@ public class TablesNameListControllerTest {
 
             mockedStatic.when(DatabaseConnector::getConnection).thenReturn(mockConn);
 
-            controller.loadTablesName(vbox);
+            controller.loadCollectionsName(vbox);
 
             assertEquals(1, vbox.getChildren().size());
             HBox row = (HBox) vbox.getChildren().getFirst();
