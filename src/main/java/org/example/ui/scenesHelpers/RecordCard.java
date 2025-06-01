@@ -19,16 +19,16 @@ public class RecordCard {
         this.recordsContainer = recordsContainer;
     }
 
-    public VBox createRecordCard(Record record, Record selectedRecord) {
+    public VBox createRecordCard(Record record) {
         VBox card = new VBox(12);
         card.setPadding(new Insets(20));
         card.getStyleClass().add("record-card");
 
         // Hover effects
-        setupCardHoverEffects(card, record, selectedRecord);
+//        setupCardHoverEffects(card, record);
 
         // Selection click
-        card.setOnMouseClicked(e -> selectRecord(record, card, selectedRecord));
+//        card.setOnMouseClicked(e -> selectRecord(record, card));
 
         HBox header = createHeader(record);
         VBox moreInfoBanner = createMoreInfoBanner(record);
@@ -39,21 +39,21 @@ public class RecordCard {
         return card;
     }
 
-    private void setupCardHoverEffects(VBox card, Record record, Record selectedRecord) {
-        card.setOnMouseEntered(e -> {
-            if (selectedRecord != record) {
-                card.getStyleClass().remove("record-card");
-                card.getStyleClass().add("record-card-hover");
-            }
-        });
-
-        card.setOnMouseExited(e -> {
-            if (selectedRecord != record) {
-                card.getStyleClass().remove("record-card-hover");
-                card.getStyleClass().add("record-card");
-            }
-        });
-    }
+//    private void setupCardHoverEffects(VBox card, Record record, Record selectedRecord) {
+//        card.setOnMouseEntered(e -> {
+//            if (selectedRecord != record) {
+//                card.getStyleClass().remove("record-card");
+//                card.getStyleClass().add("record-card-hover");
+//            }
+//        });
+//
+//        card.setOnMouseExited(e -> {
+//            if (selectedRecord != record) {
+//                card.getStyleClass().remove("record-card-hover");
+//                card.getStyleClass().add("record-card");
+//            }
+//        });
+//    }
 
     private HBox createHeader(Record record) {
         HBox header = new HBox();
@@ -172,23 +172,23 @@ public class RecordCard {
         recordsContainer.getChildren().add(emptyState);
     }
 
-    private void selectRecord(Record record, VBox card, Record selectedRecord ) {
-        // Clear previous selection
-        if (selectedRecord != null) {
-            this.recordsContainer.getChildren().forEach(node -> {
-                if (node instanceof VBox) {
-                    node.getStyleClass().clear();
-                    node.getStyleClass().add("record-card");
-                }
-            });
-        }
-
-        // Set new selection
-        selectedRecord = record;
-        card.getStyleClass().clear();
-        card.getStyleClass().add("record-card-selected");
-
-        System.out.println("Selected record: " + record.getTitle());
-    }
+//    private void selectRecord(Record record, VBox card) {
+//        // Clear previous selection
+//        if (selectedRecord != null) {
+//            this.recordsContainer.getChildren().forEach(node -> {
+//                if (node instanceof VBox) {
+//                    node.getStyleClass().clear();
+//                    node.getStyleClass().add("record-card");
+//                }
+//            });
+//        }
+//
+//        // Set new selection
+//        selectedRecord = record;
+//        card.getStyleClass().clear();
+//        card.getStyleClass().add("record-card-selected");
+//
+//        System.out.println("Selected record: " + record.getTitle());
+//    }
 
 }

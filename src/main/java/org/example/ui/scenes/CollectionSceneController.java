@@ -93,7 +93,21 @@ public class CollectionSceneController implements Initializable {
         }
 
         for (Record record : records) {
-            VBox recordCard = card.createRecordCard(record, selectedRecord);
+            VBox recordCard = card.createRecordCard(record);
+
+            if (selectedRecord != null && selectedRecord.getId() == record.getId()) {
+                recordCard.getStyleClass().clear();
+                recordCard.getStyleClass().add("record-card-selected");
+            } else {
+                recordCard.getStyleClass().clear();
+                recordCard.getStyleClass().add("record-card");
+            }
+
+            recordCard.setOnMouseClicked(event -> {
+                selectedRecord = record;
+                refreshDisplay();
+            } );
+
             recordsContainer.getChildren().add(recordCard);
         }
     }

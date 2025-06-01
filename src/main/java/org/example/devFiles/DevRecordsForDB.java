@@ -13,6 +13,91 @@ import static org.example.utils.TimeUtils.changeTimeFormat;
 
 public class DevRecordsForDB {
 
+    {
+        addRecordsData();
+        addCollectionsData();
+        addRecordCollectionsData();
+    }
+
+        public void addRecordsData() {
+            String[] titles = {
+                    "Star Song", "Night Wind", "Morning Fog", "Autumn Blues", "Summer Rain",
+                    "Dance of Light", "Leaf Whisper", "Sunny Road", "Seagull Over Sea", "Soul Flight",
+                    "Harmony", "Peaceful World", "Steppe Legend", "Stone Forest", "Silver Silence",
+                    "Echoes", "Street Musician", "Wings of Time", "Thought Mosaic", "Shadow of Memories",
+                    "Inspiration", "Dream Anthem", "Evening Glow", "Life Goes On", "Impulse",
+                    "Heartbeat", "Twilight Walk", "Freedom Call", "Ocean Depths", "Skyline"
+            };
+
+            String[] styles = {"Pop", "Rock", "Jazz", "Classical", "Electronic"};
+            String[] authors = {"John Smith", "Emma Johnson", "Liam Brown", "Olivia Davis", "Noah Wilson"};
+            String[] descriptions = {
+                    "A beautiful melody", "Energetic and uplifting", "Smooth and relaxing",
+                    "Deep and emotional", "Experimental vibes"
+            };
+
+            try (Connection conn = DatabaseConnector.getConnection()) {
+                String sql = "INSERT INTO records (title, style, duration, author, description) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    for (int i = 0; i < titles.length; i++) {
+                        stmt.setString(1, titles[i]);
+                        stmt.setString(2, styles[i % styles.length]);
+                        stmt.setString(3, LocalTime.of(0, (2 + i % 5), (30 + i % 30)).toString());
+                        stmt.setString(4, authors[i % authors.length]);
+                        stmt.setString(5, descriptions[i % descriptions.length]);
+                        stmt.addBatch();
+                    }
+                    stmt.executeBatch();
+                }
+                System.out.println("Added records in database");
+            } catch (SQLException e) {
+                System.out.println("Failed to add records");
+                e.printStackTrace();
+            }
+        }
+
+        public void addCollectionsData() {
+            String[] names = {
+                    "Best of 2023", "Chill Vibes", "Workout Mix", "Morning Playlist", "Evening Relax",
+                    "Jazz Classics", "Pop Hits", "Rock Legends", "Electronic Essentials", "Acoustic Set"
+            };
+
+            try (Connection conn = DatabaseConnector.getConnection()) {
+                String sql = "INSERT INTO collections (name) VALUES (?)";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    for (String name : names) {
+                        stmt.setString(1, name);
+                        stmt.addBatch();
+                    }
+                    stmt.executeBatch();
+                }
+                System.out.println("Added collections in database");
+            } catch (SQLException e) {
+                System.out.println("Failed to add collections");
+                e.printStackTrace();
+            }
+        }
+
+        public void addRecordCollectionsData() {
+            try (Connection conn = DatabaseConnector.getConnection()) {
+                String sql = "INSERT INTO record_collections (record_id, collection_id) VALUES (?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    for (int i = 1; i <= 30; i++) {
+                        int collectionId = (i % 10) + 1;
+                        stmt.setInt(1, i);
+                        stmt.setInt(2, collectionId);
+                        stmt.addBatch();
+                    }
+                    stmt.executeBatch();
+                }
+                System.out.println("Added record_collections in database");
+            } catch (SQLException e) {
+                System.out.println("Failed to add record_collections");
+                e.printStackTrace();
+            }
+        }
+
+
 
     public void addData() {
         List<Record> records = List.of(
