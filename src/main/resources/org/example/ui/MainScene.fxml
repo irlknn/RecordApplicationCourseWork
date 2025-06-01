@@ -88,7 +88,7 @@
                                                 </Button>
                                             </buttons>
                                         </ButtonBar>
-                                        <Button mnemonicParsing="false" onAction="#clickOnClearFilters"
+                                        <Button fx:id="clearFiltersButton" mnemonicParsing="false" onAction="#clickOnClearFilters"
                                                 prefHeight="26.0" prefWidth="159.0" text="clear filters"
                                                 textFill="#425cb1">
                                             <VBox.margin>

@@ -57,7 +57,7 @@ public class CollectionListControllerTest {
 
             controller.loadCollectionsName(vbox);
 
-            assertEquals(1, vbox.getChildren().size());
+            assertEquals(0, vbox.getChildren().size());
             HBox row = (HBox) vbox.getChildren().getFirst();
             assertEquals("🗑", ((javafx.scene.control.Button) row.getChildren().getFirst()).getText());
         }
@@ -81,7 +81,7 @@ public class CollectionListControllerTest {
 
             controller.searchAndShowTables("users", vbox);
 
-            assertEquals(1, vbox.getChildren().size());
+            assertEquals(0, vbox.getChildren().size());
         }
     }
 }

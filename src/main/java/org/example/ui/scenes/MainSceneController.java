@@ -33,6 +33,8 @@ public class MainSceneController implements Initializable {
     private AnchorPane scenePane;
     @FXML
     private TextField newTableName;
+    @FXML
+    private Button clearFiltersButton;
 
     private DBCollectionManager dbcollectioManager = new DBCollectionManager();
     private CollectionListController collectionListController = new CollectionListController();
