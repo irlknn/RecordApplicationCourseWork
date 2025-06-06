@@ -1,14 +1,12 @@
 package org.example.repository;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.models.Record;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.*;
 
 import static org.example.utils.TimeUtils.changeTimeFormat;
 
@@ -17,6 +15,7 @@ public class DBRecordManager {
 
     /**
      * Insert record in database
+     *
      * @param record - new record to insert in database
      * @return id of created record or -1 in case of error
      */
@@ -44,6 +43,7 @@ public class DBRecordManager {
 
     /**
      * getting all records from collection
+     *
      * @param collectionId - id of record
      * @return records - list with all records in collection
      */
@@ -78,7 +78,8 @@ public class DBRecordManager {
 
     /**
      * Delete record from database
-      * @param recordId - record id
+     *
+     * @param recordId - record id
      */
     public void deleteRecord(int recordId) {
         String sql = "DELETE FROM records WHERE id = ?";

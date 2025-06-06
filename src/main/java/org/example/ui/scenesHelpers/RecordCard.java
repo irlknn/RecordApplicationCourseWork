@@ -15,7 +15,7 @@ public class RecordCard {
     @FXML
     VBox recordsContainer;
 
-    public void setRecordContainer(VBox recordsContainer){
+    public void setRecordContainer(VBox recordsContainer) {
         this.recordsContainer = recordsContainer;
     }
 
@@ -80,7 +80,7 @@ public class RecordCard {
         return titleLabel;
     }
 
-    private HBox styleBoxAndMore(Record record, VBox moreInfoBanner){
+    private HBox styleBoxAndMore(Record record, VBox moreInfoBanner) {
         HBox styleBox = createStyleBox(record);
         HBox styleWithMore = new HBox();
         styleWithMore.setAlignment(Pos.CENTER_LEFT);
@@ -171,6 +171,7 @@ public class RecordCard {
         emptyState.getChildren().addAll(emptyIcon, emptyTitle, emptyDescription);
         recordsContainer.getChildren().add(emptyState);
     }
+}
 
 //    private void selectRecord(Record record, VBox card) {
 //        // Clear previous selection
@@ -191,4 +192,3 @@ public class RecordCard {
 //        System.out.println("Selected record: " + record.getTitle());
 //    }
 
-}

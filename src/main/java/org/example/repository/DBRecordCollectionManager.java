@@ -19,7 +19,8 @@ public class DBRecordCollectionManager {
 
     /**
      * Making connection between record and collection
-     * @param record - record to insert
+     *
+     * @param record       - record to insert
      * @param collectionId - id of collection in which is insertion
      */
     public void addRecordToCollection(Record record, int collectionId) {
@@ -38,7 +39,8 @@ public class DBRecordCollectionManager {
 
     /**
      * Delete record from collection
-     * @param recordId  - record id
+     *
+     * @param recordId     - record id
      * @param collectionId - collection id
      */
     public void removeRecordFromCollection(int recordId, int collectionId) {
@@ -54,15 +56,15 @@ public class DBRecordCollectionManager {
         }
     }
 
-    public ObservableList<Record> findByParameter(int collectionId, String parameter, String input){
+    public ObservableList<Record> findByParameter(int collectionId, String parameter, String input) {
         ObservableList<Record> records = FXCollections.observableArrayList();
 
         String sql = """
-        SELECT r.*
-        FROM records r
-        JOIN record_collections rc ON r.id = rc.record_id
-        WHERE rc.collection_id = ? AND LOWER(r.%s) LIKE LOWER(?)
-    """.formatted(parameter);
+                    SELECT r.*
+                    FROM records r
+                    JOIN record_collections rc ON r.id = rc.record_id
+                    WHERE rc.collection_id = ? AND LOWER(r.%s) LIKE LOWER(?)
+                """.formatted(parameter);
 
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -82,12 +84,12 @@ public class DBRecordCollectionManager {
         ObservableList<Record> records = FXCollections.observableArrayList();
 
         String sql = """
-        SELECT r.*
-        FROM records r
-        JOIN record_collections rc ON r.id = rc.record_id
-        WHERE rc.collection_id = ?
-          AND r.duration BETWEEN ? AND ?
-    """;
+                    SELECT r.*
+                    FROM records r
+                    JOIN record_collections rc ON r.id = rc.record_id
+                    WHERE rc.collection_id = ?
+                      AND r.duration BETWEEN ? AND ?
+                """;
 
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -104,15 +106,15 @@ public class DBRecordCollectionManager {
         return records;
     }
 
-    public ObservableList<Record> sortByParameter(int collectionId, String parameter){
+    public ObservableList<Record> sortByParameter(int collectionId, String parameter) {
         ObservableList<Record> records = FXCollections.observableArrayList();
 
         String sql = """
-        SELECT r.*
-        FROM records r
-        JOIN record_collections rc ON r.id = rc.record_id
-        WHERE rc.collection_id = ?
-        ORDER BY r.""" + parameter;
+                SELECT r.*
+                FROM records r
+                JOIN record_collections rc ON r.id = rc.record_id
+                WHERE rc.collection_id = ?
+                ORDER BY r.""" + parameter;
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, collectionId);
@@ -138,10 +140,9 @@ public class DBRecordCollectionManager {
                 records.add(record);
             }
         } catch (SQLException e) {
-            logger.error("Failed fetching data from DB (statement - {}) Error message: {}", statement , e.getMessage());
+            logger.error("Failed fetching data from DB (statement - {}) Error message: {}", statement, e.getMessage());
         }
     }
-
 
 
 }

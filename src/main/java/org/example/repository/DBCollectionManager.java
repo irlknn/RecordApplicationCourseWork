@@ -13,6 +13,7 @@ public class DBCollectionManager {
 
     /**
      * Insert new collection in database
+     *
      * @param name - collection name
      */
     public int insertCollection(String name) {
@@ -26,14 +27,14 @@ public class DBCollectionManager {
             logger.info("{} was inserted in database", name);
         } catch (SQLException e) {
             logger.error("Failed to insert {} in database", name);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("Problem in inserting new collection {}", e.getMessage());
         }
         return -1;
     }
 
     /**
-    * Get all collection from database
+     * Get all collection from database
      */
     public List<Collection> getAllCollections() {
         List<Collection> list = new ArrayList<>();
@@ -50,19 +51,17 @@ public class DBCollectionManager {
             logger.info("Get {} collections from db", list.size());
         } catch (SQLException e) {
             logger.error("Failed to get {} collection from db, list size - {}", list.size());
-        } catch (Exception e){
-        logger.error("Problem in getting collections ");
+        } catch (Exception e) {
+            logger.error("Problem in getting collections ");
         }
         return list;
     }
 
-    public String getCollectionNameById(int id)
-    {
+    public String getCollectionNameById(int id) {
         String sql = "SELECT name FROM collections WHERE id = ?";
         String collectionName = "";
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql))
-        {
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -72,9 +71,7 @@ public class DBCollectionManager {
                     return "";
                 }
             }
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             logger.error("Failed to get name from db");
         }
         return collectionName;
@@ -82,6 +79,7 @@ public class DBCollectionManager {
 
     /**
      * Delete collection from database with all records in it
+     *
      * @param id - id of collection
      */
     public void deleteCollection(int id) {

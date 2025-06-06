@@ -49,6 +49,7 @@ public class DBManagerTest {
             new DBManager();
         }
     }
+
     @Test
     void testInitializeRecordCollectionsSQLException() throws Exception {
         Connection mockConn = mock(Connection.class);

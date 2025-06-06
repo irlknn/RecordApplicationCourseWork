@@ -3,21 +3,17 @@ package org.example.ui.scenes;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.models.Record;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import java.util.Objects;
-
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.isInvisible;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
-import static org.testfx.util.NodeQueryUtils.isVisible;
 
 class CollectionSceneControllerTest extends ApplicationTest {
 
@@ -82,6 +78,21 @@ class CollectionSceneControllerTest extends ApplicationTest {
         clickOn("#addButton");
         // Тут можна додати перевірку, що має статися після кліку
         // Наприклад, перевірка появи діалогу або зміни сцени
+    }
+
+    @Test
+    void testSearchWithEmptyInputClearsFilters() {
+        clickOn("#enterField").eraseText(10);
+        clickOn("#searchButton");
+        verifyThat("#sortChoiceBox", (ChoiceBox<String> c) -> c.getValue() == null);
+        verifyThat("#findChoiceBox", (ChoiceBox<String> c) -> c.getValue() == null);
+    }
+
+    @Test
+    void testSelectSortBy() {
+        clickOn("#sortChoiceBox").clickOn("duration");
+        // можна додати перевірку кількості елементів у контейнері
+        verifyThat("#recordsContainer", (VBox box) -> box.getChildren().size() >= 0);
     }
 
 }

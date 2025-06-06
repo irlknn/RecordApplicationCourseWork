@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.effect.DropShadow?>
-
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="scenePane"
             xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.ui.scenes.CollectionSceneController"
             styleClass="scene-pane">
@@ -66,33 +62,36 @@
                                             AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
                                             AnchorPane.topAnchor="15.0" AnchorPane.bottomAnchor="15.0">
                                     <content>
-<!--                                        <VBox fx:id="recordsContainer" spacing="12"-->
-<!--                                              styleClass="records-container">-->
-<!--                                        </VBox>-->
-                                        <VBox fx:id="recordsContainer" alignment="TOP_LEFT" spacing="10" styleClass="record-card">
+                                        <!--                                        <VBox fx:id="recordsContainer" spacing="12"-->
+                                        <!--                                              styleClass="records-container">-->
+                                        <!--                                        </VBox>-->
+                                        <VBox fx:id="recordsContainer" alignment="TOP_LEFT" spacing="10"
+                                              styleClass="record-card">
                                             <!-- Existing fields like title, duration, etc. -->
 
                                             <!-- Duration label -->
-                                            <Label fx:id="durationLabel" text="Duration: 3:30" />
+                                            <Label fx:id="durationLabel" text="Duration: 3:30"/>
 
                                             <!-- More button -->
-                                            <Button text="More" onAction="#handleMoreButtonClick" />
+                                            <Button text="More" onAction="#handleMoreButtonClick"/>
 
-                                            <!-- Hidden banner initially -->
-                                            <AnchorPane fx:id="moreInfoBanner" visible="false" managed="false"
-                                                        style="-fx-background-color: #f1f3f5; -fx-padding: 10; -fx-border-color: #adb5bd; -fx-border-radius: 5;">
-                                                <VBox spacing="5">
-                                                    <HBox alignment="TOP_RIGHT">
-                                                        <Button text="X" onAction="#handleCloseMoreInfo" style="-fx-background-color: transparent; -fx-font-weight: bold;" />
-                                                    </HBox>
-                                                    <Label fx:id="authorLabel" text="Author: ..." />
-                                                    <Label fx:id="descriptionLabel" text="Description: ..." wrapText="true"/>
-                                                </VBox>
-                                            </AnchorPane>
+
                                         </VBox>
 
                                     </content>
                                 </ScrollPane>
+                                <!-- Hidden banner initially -->
+                                <AnchorPane fx:id="moreInfoBanner" visible="false" managed="false"
+                                            style="-fx-background-color: #f1f3f5; -fx-padding: 10; -fx-border-color: #adb5bd; -fx-border-radius: 5;">
+                                    <VBox spacing="5">
+                                        <HBox alignment="TOP_RIGHT">
+                                            <Button text="X" onAction="#handleCloseMoreInfo"
+                                                    style="-fx-background-color: transparent; -fx-font-weight: bold;"/>
+                                        </HBox>
+                                        <Label fx:id="authorLabel" text="Author: ..."/>
+                                        <Label fx:id="descriptionLabel" text="Description: ..." wrapText="true"/>
+                                    </VBox>
+                                </AnchorPane>
                             </children>
                         </AnchorPane>
 
@@ -101,13 +100,15 @@
                                     styleClass="sidebar-menu">
                             <children>
                                 <VBox alignment="TOP_CENTER" spacing="20" styleClass="sidebar-content"
-                                      AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+                                      AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                                      AnchorPane.topAnchor="30.0">
                                     <children>
                                         <Label text="Actions" styleClass="sidebar-section-title"/>
 
                                         <VBox spacing="12" prefWidth="180.0" styleClass="action-buttons-container">
                                             <children>
-                                                <Button fx:id="addButton" mnemonicParsing="false" onAction="#clickOnAddButton"
+                                                <Button fx:id="addButton" mnemonicParsing="false"
+                                                        onAction="#clickOnAddButton"
                                                         prefHeight="40.0" maxWidth="Infinity" text="Add Record"
                                                         styleClass="add-record-button">
                                                     <cursor>
@@ -115,7 +116,8 @@
                                                     </cursor>
                                                 </Button>
 
-                                                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#clickOnDeleteButton"
+                                                <Button fx:id="deleteButton" mnemonicParsing="false"
+                                                        onAction="#clickOnDeleteButton"
                                                         prefHeight="40.0" maxWidth="Infinity" text="Delete Selected"
                                                         styleClass="delete-record-button">
                                                     <cursor>
@@ -152,7 +154,8 @@
                                 <Button fx:id="exitButton" mnemonicParsing="false" onAction="#back"
                                         prefHeight="40.0" prefWidth="180.0" text="← Back"
                                         styleClass="back-button"
-                                        AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                                        AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0"
+                                        AnchorPane.rightAnchor="20.0">
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>

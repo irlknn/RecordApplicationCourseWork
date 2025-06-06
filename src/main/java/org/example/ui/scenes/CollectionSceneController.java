@@ -1,17 +1,20 @@
 package org.example.ui.scenes;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.collections.ObservableList;
 import org.example.models.Record;
 import org.example.repository.DBCollectionManager;
 import org.example.repository.DBRecordCollectionManager;
 import org.example.repository.DBRecordManager;
-import org.example.ui.scenesHelpers.*;
+import org.example.ui.scenesHelpers.FindController;
+import org.example.ui.scenesHelpers.RecordCard;
+import org.example.ui.scenesHelpers.SceneController;
+import org.example.ui.scenesHelpers.SortController;
 import org.example.utils.CollectionService;
 
 import java.net.URL;
@@ -41,18 +44,23 @@ public class CollectionSceneController implements Initializable {
     @FXML
     ScrollPane recordsScrollPane;
     @FXML
+    Button deleteButton;
+    Record selectedRecord;
+    @FXML
     private Button addButton;
     @FXML
-    Button deleteButton;
-    @FXML
     private Button exitButton;
-
     private DBRecordCollectionManager recordCollectionManager = new DBRecordCollectionManager();
     private DBCollectionManager collectionManager = new DBCollectionManager();
     private DBRecordManager recordManager = new DBRecordManager();
     private CollectionService collectionService;
-    Record selectedRecord;
     private int collectionId;
+    @FXML
+    private AnchorPane moreInfoBanner;
+    @FXML
+    private Label authorLabel;
+    @FXML
+    private Label descriptionLabel;
 
     public CollectionSceneController() {
     }
@@ -106,7 +114,7 @@ public class CollectionSceneController implements Initializable {
             recordCard.setOnMouseClicked(event -> {
                 selectedRecord = record;
                 refreshDisplay();
-            } );
+            });
 
             recordsContainer.getChildren().add(recordCard);
         }
@@ -202,13 +210,6 @@ public class CollectionSceneController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-    @FXML
-    private AnchorPane moreInfoBanner;
-    @FXML
-    private Label authorLabel;
-    @FXML
-    private Label descriptionLabel;
 
     public void handleMoreButtonClick(ActionEvent event) {
         authorLabel.setText("Author:");

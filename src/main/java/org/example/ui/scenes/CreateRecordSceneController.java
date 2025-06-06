@@ -6,11 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.models.Record;
 import org.example.repository.DBRecordCollectionManager;
-import org.example.repository.DBRecordManager;
 import org.example.ui.scenesHelpers.SceneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlite.core.DB;
 
 import static org.example.utils.TimeUtils.changeTimeFormat;
 
@@ -31,7 +29,7 @@ public class CreateRecordSceneController {
     Label notificationLabel;
 
     private DBRecordCollectionManager recordCollectionManager = new DBRecordCollectionManager();
-//    private DBRecordManager recordManager;
+    //    private DBRecordManager recordManager;
     private int collectionId;
 
     public CreateRecordSceneController() {

@@ -7,14 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.models.Collection;
 import org.example.repository.DBCollectionManager;
-import org.example.repository.DatabaseConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class CollectionListController {
     private static final Logger logger = LoggerFactory.getLogger(CollectionListController.class);
@@ -24,7 +18,7 @@ public class CollectionListController {
         int tablesSize = 0;
         collectionsNameContainer.getChildren().clear();
         SceneController sceneController = new SceneController();
-        for(Collection collection : collectionManager.getAllCollections()){
+        for (Collection collection : collectionManager.getAllCollections()) {
             HBox row = gethBox(collectionsNameContainer, collection, sceneController);
             collectionsNameContainer.getChildren().add(row);
             tablesSize++;
@@ -51,7 +45,7 @@ public class CollectionListController {
     public void searchAndShowTables(String searchQuery, VBox tablesNameContainer) {
         SceneController sceneController = new SceneController();
 
-        for(Collection collection : collectionManager.getAllCollections()) {
+        for (Collection collection : collectionManager.getAllCollections()) {
             if (collection.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
                 HBox row = gethBox(tablesNameContainer, collection, sceneController);
                 tablesNameContainer.getChildren().add(row);

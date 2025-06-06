@@ -1,7 +1,8 @@
 package org.example.repository;
 
 import org.example.models.Collection;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.sql.*;
@@ -121,4 +122,68 @@ class DBCollectionManagerTest {
             verify(ps).setInt(1, 5);
         }
     }
+
+    @Test
+    void insertCollection_unexpectedException() throws Exception {
+        Connection conn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+
+        when(conn.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS))).thenReturn(ps);
+        when(ps.getGeneratedKeys()).thenThrow(new RuntimeException("Unexpected error"));
+
+        try (MockedStatic<DatabaseConnector> mocked = mockStatic(DatabaseConnector.class)) {
+            mocked.when(DatabaseConnector::getConnection).thenReturn(conn);
+
+            int id = manager.insertCollection("Bad Collection");
+            assertEquals(-1, id);
+        }
+    }
+
+    @Test
+    void getAllCollections_sqlException() throws Exception {
+        try (MockedStatic<DatabaseConnector> mocked = mockStatic(DatabaseConnector.class)) {
+            mocked.when(DatabaseConnector::getConnection).thenThrow(new SQLException("SQL Error"));
+
+            List<Collection> collections = manager.getAllCollections();
+            assertTrue(collections.isEmpty());
+        }
+    }
+
+    @Test
+    void getAllCollections_unexpectedException() throws Exception {
+        Connection conn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+
+        when(conn.prepareStatement(anyString())).thenReturn(ps);
+        when(ps.executeQuery()).thenThrow(new RuntimeException("Unexpected failure"));
+
+        try (MockedStatic<DatabaseConnector> mocked = mockStatic(DatabaseConnector.class)) {
+            mocked.when(DatabaseConnector::getConnection).thenReturn(conn);
+
+            List<Collection> collections = manager.getAllCollections();
+            assertTrue(collections.isEmpty());
+        }
+    }
+
+    @Test
+    void getCollectionNameById_sqlException() throws Exception {
+        try (MockedStatic<DatabaseConnector> mocked = mockStatic(DatabaseConnector.class)) {
+            mocked.when(DatabaseConnector::getConnection).thenThrow(new SQLException("DB error"));
+
+            String name = manager.getCollectionNameById(123);
+            assertEquals("", name);
+        }
+    }
+
+    @Test
+    void deleteCollection_sqlException() throws Exception {
+        when(DatabaseConnector.getConnection()).thenThrow(new SQLException("Deletion error"));
+
+        try (MockedStatic<DatabaseConnector> mocked = mockStatic(DatabaseConnector.class)) {
+            mocked.when(DatabaseConnector::getConnection).thenThrow(new SQLException("DB error"));
+
+            assertDoesNotThrow(() -> manager.deleteCollection(100));
+        }
+    }
+
 }

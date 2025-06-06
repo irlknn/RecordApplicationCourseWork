@@ -4,7 +4,10 @@ import org.example.models.Record;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +21,7 @@ public class DBRecordManagerTest {
         Record record = new Record();
         record.setTitle("Test");
         record.setStyle("Jazz");
-        record.setDuration(LocalTime.of(0, 3,15));
+        record.setDuration(LocalTime.of(0, 3, 15));
         record.setAuthor("Author");
         record.setDescription("Description");
 

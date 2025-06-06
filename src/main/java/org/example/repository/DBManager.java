@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.example.repository.DBService.validateTableName;
-
 public class DBManager {
     private static final Logger logger = LoggerFactory.getLogger(DBManager.class);
 
