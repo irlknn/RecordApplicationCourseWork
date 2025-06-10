@@ -15,20 +15,14 @@ public class RecordCard {
     @FXML
     VBox recordsContainer;
 
-    public void setRecordContainer(VBox recordsContainer){
+    public void setRecordContainer(VBox recordsContainer) {
         this.recordsContainer = recordsContainer;
     }
 
-    public VBox createRecordCard(Record record, Record selectedRecord) {
+    public VBox createRecordCard(Record record) {
         VBox card = new VBox(12);
         card.setPadding(new Insets(20));
         card.getStyleClass().add("record-card");
-
-        // Hover effects
-        setupCardHoverEffects(card, record, selectedRecord);
-
-        // Selection click
-        card.setOnMouseClicked(e -> selectRecord(record, card, selectedRecord));
 
         HBox header = createHeader(record);
         VBox moreInfoBanner = createMoreInfoBanner(record);
@@ -37,22 +31,6 @@ public class RecordCard {
 
         card.getChildren().addAll(header, titleLabel, styleWithMore, moreInfoBanner);
         return card;
-    }
-
-    private void setupCardHoverEffects(VBox card, Record record, Record selectedRecord) {
-        card.setOnMouseEntered(e -> {
-            if (selectedRecord != record) {
-                card.getStyleClass().remove("record-card");
-                card.getStyleClass().add("record-card-hover");
-            }
-        });
-
-        card.setOnMouseExited(e -> {
-            if (selectedRecord != record) {
-                card.getStyleClass().remove("record-card-hover");
-                card.getStyleClass().add("record-card");
-            }
-        });
     }
 
     private HBox createHeader(Record record) {
@@ -80,7 +58,7 @@ public class RecordCard {
         return titleLabel;
     }
 
-    private HBox styleBoxAndMore(Record record, VBox moreInfoBanner){
+    private HBox styleBoxAndMore(Record record, VBox moreInfoBanner) {
         HBox styleBox = createStyleBox(record);
         HBox styleWithMore = new HBox();
         styleWithMore.setAlignment(Pos.CENTER_LEFT);
@@ -171,24 +149,4 @@ public class RecordCard {
         emptyState.getChildren().addAll(emptyIcon, emptyTitle, emptyDescription);
         recordsContainer.getChildren().add(emptyState);
     }
-
-    private void selectRecord(Record record, VBox card, Record selectedRecord ) {
-        // Clear previous selection
-        if (selectedRecord != null) {
-            this.recordsContainer.getChildren().forEach(node -> {
-                if (node instanceof VBox) {
-                    node.getStyleClass().clear();
-                    node.getStyleClass().add("record-card");
-                }
-            });
-        }
-
-        // Set new selection
-        selectedRecord = record;
-        card.getStyleClass().clear();
-        card.getStyleClass().add("record-card-selected");
-
-        System.out.println("Selected record: " + record.getTitle());
-    }
-
 }

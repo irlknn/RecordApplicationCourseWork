@@ -2,18 +2,18 @@ package org.example.ui.scenesHelpers;
 
 import javafx.collections.ObservableList;
 import org.example.models.Record;
-import org.example.repository.DBTableManager;
+import org.example.repository.DBRecordCollectionManager;
 
 public class SortController {
-    private final DBTableManager tableManager;
-    private String tableName;
+    private DBRecordCollectionManager recordCollectionManager;
+    private int collectionId;
 
-    public SortController(DBTableManager tableManager, String tableName) {
-        this.tableManager = tableManager;
-        this.tableName = tableName;
+    public SortController(DBRecordCollectionManager recordCollectionManager, int collectionId) {
+        this.recordCollectionManager = recordCollectionManager;
+        this.collectionId = collectionId;
     }
 
     public ObservableList<Record> sortBy(String parameter) {
-        return tableManager.sortByParameter(tableName, parameter);
+        return recordCollectionManager.sortByParameter(collectionId, parameter);
     }
 }

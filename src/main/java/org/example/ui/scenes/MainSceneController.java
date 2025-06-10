@@ -8,8 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.repository.DBManager;
-import org.example.ui.scenesHelpers.TablesNameListController;
+import org.example.repository.DBCollectionManager;
+import org.example.ui.scenesHelpers.CollectionListController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +20,9 @@ public class MainSceneController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(MainSceneController.class);
 
     @FXML
-    VBox tablesNameContainer;
+    VBox collectionsNameContainer;
     @FXML
-    private Button crateButton;
+    private Button createButton;
     @FXML
     private Button exitButton;
     @FXML
@@ -33,34 +33,36 @@ public class MainSceneController implements Initializable {
     private AnchorPane scenePane;
     @FXML
     private TextField newTableName;
+    @FXML
+    private Button clearFiltersButton;
 
-    private DBManager dbManager = new DBManager();
-    private TablesNameListController tablesNameListController = new TablesNameListController();
+    private DBCollectionManager dbcollectioManager = new DBCollectionManager();
+    private CollectionListController collectionListController = new CollectionListController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tablesNameListController.loadTablesName(tablesNameContainer);
+        collectionListController.loadCollectionsName(collectionsNameContainer);
     }
 
     @FXML
-    private void createTable() {
+    private void createCollection() {
         String name = newTableName.getText();
         if (name != null) {
-            dbManager.createTable(name);
-            tablesNameListController.loadTablesName(tablesNameContainer);
+            dbcollectioManager.insertCollection(name);
+            collectionListController.loadCollectionsName(collectionsNameContainer);
         }
     }
 
     @FXML
     private void clickOnSearchButton() {
-        tablesNameContainer.getChildren().clear();
-        tablesNameListController.searchAndShowTables(enterField.getText(), tablesNameContainer);
+        collectionsNameContainer.getChildren().clear();
+        collectionListController.searchAndShowTables(enterField.getText(), collectionsNameContainer);
     }
 
     @FXML
     private void clickOnClearFilters() {
-        tablesNameContainer.getChildren().clear();
-        tablesNameListController.loadTablesName(tablesNameContainer);
+        collectionsNameContainer.getChildren().clear();
+        collectionListController.loadCollectionsName(collectionsNameContainer);
     }
 
     @FXML

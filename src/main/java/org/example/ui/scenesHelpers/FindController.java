@@ -2,27 +2,27 @@ package org.example.ui.scenesHelpers;
 
 import javafx.collections.ObservableList;
 import org.example.models.Record;
-import org.example.repository.DBTableManager;
+import org.example.repository.DBRecordCollectionManager;
 
 public class FindController {
-    private DBTableManager repository;
-    private String tableName;
+    private DBRecordCollectionManager recordCollectionManager;
+    private int collectionId;
 
-    public FindController(DBTableManager repository, String tableName) {
-        this.repository = repository;
-        this.tableName = tableName;
+    public FindController(DBRecordCollectionManager recordCollectionManager, int collectionId) {
+        this.recordCollectionManager = recordCollectionManager;
+        this.collectionId = collectionId;
     }
 
     public ObservableList<Record> findBy(String parameter, String input) {
         switch (parameter) {
             case "title", "style" -> {
-                return repository.findByParameter(tableName, parameter, input);
+                return recordCollectionManager.findByParameter(collectionId, parameter, input);
             }
             case "duration" -> {
-                return repository.findByDuration(tableName, "00:00:00", input);
+                return recordCollectionManager.findByDuration(collectionId, "00:00:00", input);
             }
             default -> {
-                return repository.findByParameter(tableName, "title", input);
+                return recordCollectionManager.findByParameter(collectionId, "title", input);
             }
         }
     }

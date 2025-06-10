@@ -10,12 +10,6 @@ public class Record {
     private String author;
     private String description;
 
-//    public Record(String title, String style, LocalTime duration) {
-//        this.title = title;
-//        this.style = style;
-//        this.duration = duration;
-//    }
-
     public Record(String title, String style, LocalTime duration, String author, String description) {
         this.title = title;
         this.style = style;
@@ -60,14 +54,16 @@ public class Record {
         this.duration = duration;
     }
 
-    public String getAuthor() {return this.author;
+    public String getAuthor() {
+        return this.author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public String getDescription() {return this.description;
+    public String getDescription() {
+        return this.description;
     }
 
     public void setDescription(String description) {

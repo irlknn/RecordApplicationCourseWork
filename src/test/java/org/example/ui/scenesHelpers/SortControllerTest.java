@@ -3,54 +3,60 @@ package org.example.ui.scenesHelpers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.models.Record;
-import org.example.repository.DBTableManager;
+import org.example.repository.DBRecordCollectionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
-class SortControllerTest {
+public class SortControllerTest {
 
-    private DBTableManager tableManager;
+    private final int collectionId = 1;
+    private DBRecordCollectionManager mockManager;
     private SortController sortController;
 
     @BeforeEach
     void setUp() {
-        tableManager = mock(DBTableManager.class);
-        sortController = new SortController(tableManager, "dummy_table");
+        mockManager = mock(DBRecordCollectionManager.class);
+        sortController = new SortController(mockManager, collectionId);
     }
 
     @Test
-    void testSortBy_title() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(tableManager.sortByParameter("dummy_table", "title")).thenReturn(expected);
+    void testSortBy_callsSortByParameterAndReturnsList() {
+        ObservableList<Record> dummyList = FXCollections.observableArrayList();
+        String param = "title";
 
-        ObservableList<Record> result = sortController.sortBy("title");
+        when(mockManager.sortByParameter(collectionId, param)).thenReturn(dummyList);
 
-        assertSame(expected, result);
-        verify(tableManager).sortByParameter("dummy_table", "title");
+        ObservableList<Record> result = sortController.sortBy(param);
+
+        verify(mockManager, times(1)).sortByParameter(collectionId, param);
+        assertSame(dummyList, result);
     }
 
     @Test
-    void testSortBy_duration() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(tableManager.sortByParameter("dummy_table", "duration")).thenReturn(expected);
+    void testSortBy_withDifferentParameter() {
+        ObservableList<Record> dummyList = FXCollections.observableArrayList();
+        String param = "duration";
 
-        ObservableList<Record> result = sortController.sortBy("duration");
+        when(mockManager.sortByParameter(collectionId, param)).thenReturn(dummyList);
 
-        assertSame(expected, result);
-        verify(tableManager).sortByParameter("dummy_table", "duration");
+        ObservableList<Record> result = sortController.sortBy(param);
+
+        verify(mockManager, times(1)).sortByParameter(collectionId, param);
+        assertSame(dummyList, result);
     }
 
     @Test
-    void testSortBy_style() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(tableManager.sortByParameter("dummy_table", "style")).thenReturn(expected);
+    void testSortBy_withNullParameter() {
+        ObservableList<Record> dummyList = FXCollections.observableArrayList();
 
-        ObservableList<Record> result = sortController.sortBy("style");
+        when(mockManager.sortByParameter(collectionId, null)).thenReturn(dummyList);
 
-        assertSame(expected, result);
-        verify(tableManager).sortByParameter("dummy_table", "style");
+        ObservableList<Record> result = sortController.sortBy(null);
+
+        verify(mockManager, times(1)).sortByParameter(collectionId, null);
+        assertSame(dummyList, result);
     }
 }

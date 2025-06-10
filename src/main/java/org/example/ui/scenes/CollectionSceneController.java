@@ -1,15 +1,20 @@
 package org.example.ui.scenes;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.collections.ObservableList;
 import org.example.models.Record;
-import org.example.repository.DBTableManager;
-import org.example.ui.scenesHelpers.*;
+import org.example.repository.DBCollectionManager;
+import org.example.repository.DBRecordCollectionManager;
+import org.example.repository.DBRecordManager;
+import org.example.ui.scenesHelpers.FindController;
+import org.example.ui.scenesHelpers.RecordCard;
+import org.example.ui.scenesHelpers.SceneController;
+import org.example.ui.scenesHelpers.SortController;
 import org.example.utils.CollectionService;
 
 import java.net.URL;
@@ -39,33 +44,35 @@ public class CollectionSceneController implements Initializable {
     @FXML
     ScrollPane recordsScrollPane;
     @FXML
+    Button deleteButton;
+    Record selectedRecord;
+    @FXML
     private Button addButton;
     @FXML
-    Button deleteButton;
-    @FXML
     private Button exitButton;
-
-    String tableName;
-    private DBTableManager tableManager;
-    private TableController tableController;
+    private DBRecordCollectionManager recordCollectionManager = new DBRecordCollectionManager();
+    private DBCollectionManager collectionManager = new DBCollectionManager();
+    private DBRecordManager recordManager = new DBRecordManager();
     private CollectionService collectionService;
-    Record selectedRecord;
+    private int collectionId;
+    @FXML
+    private AnchorPane moreInfoBanner;
+    @FXML
+    private Label authorLabel;
+    @FXML
+    private Label descriptionLabel;
 
     public CollectionSceneController() {
     }
 
-    public void initialize(String tableName, DBTableManager tableManager,
-                           TableController tableController, CollectionService collectionService) {
-        this.tableName = tableName;
-        this.tableManager = tableManager;
-        this.tableController = tableController;
-        this.collectionService = collectionService;
+    public void initialize(int collectionId) {
+        this.collectionId = collectionId;
+        this.collectionService = new CollectionService(recordManager.getRecordsByCollectionId(collectionId));
 
-        tableNameLabel.setText(tableName);
+        tableNameLabel.setText(collectionManager.getCollectionNameById(collectionId));
         collectionDurationLabel.setText(collectionService.collectionDuration());
 
-        // Load and display records
-        displayRecords(tableManager.selectAllFromTable(tableName));
+        displayRecords(recordManager.getRecordsByCollectionId(collectionId));
     }
 
     @Override
@@ -94,14 +101,28 @@ public class CollectionSceneController implements Initializable {
         }
 
         for (Record record : records) {
-            VBox recordCard = card.createRecordCard(record, selectedRecord);
+            VBox recordCard = card.createRecordCard(record);
+
+            if (selectedRecord != null && selectedRecord.getId() == record.getId()) {
+                recordCard.getStyleClass().clear();
+                recordCard.getStyleClass().add("record-card-selected");
+            } else {
+                recordCard.getStyleClass().clear();
+                recordCard.getStyleClass().add("record-card");
+            }
+
+            recordCard.setOnMouseClicked(event -> {
+                selectedRecord = record;
+                refreshDisplay();
+            });
+
             recordsContainer.getChildren().add(recordCard);
         }
     }
 
     public void clickOnAddButton(ActionEvent e) {
         SceneController sceneController = new SceneController();
-        sceneController.goToCreateRecordPane(e, tableManager, tableName);
+        sceneController.goToCreateRecordPane(e, collectionId);
         refreshCollectionDuration();
     }
 
@@ -119,7 +140,7 @@ public class CollectionSceneController implements Initializable {
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                tableManager.deleteFromTableById(selectedRecord.getId(), tableName);
+                recordManager.deleteRecord(selectedRecord.getId());
                 selectedRecord = null;
                 refreshDisplay();
                 refreshCollectionDuration();
@@ -128,7 +149,7 @@ public class CollectionSceneController implements Initializable {
     }
 
     public void selectSortBy(ActionEvent e) {
-        SortController sortController = new SortController(tableManager, tableName);
+        SortController sortController = new SortController(recordCollectionManager, collectionId);
         String parameter = sortChoiceBox.getValue();
         if (parameter != null) {
             ObservableList<Record> sortedRecords = sortController.sortBy(parameter);
@@ -137,7 +158,7 @@ public class CollectionSceneController implements Initializable {
     }
 
     public void selectFindBy(ActionEvent e) {
-        FindController findController = new FindController(tableManager, tableName);
+        FindController findController = new FindController(recordCollectionManager, collectionId);
         String parameter = findChoiceBox.getValue();
         String searchText = enterField.getText();
 
@@ -148,7 +169,7 @@ public class CollectionSceneController implements Initializable {
     }
 
     public void clickOnSearchButton(ActionEvent e) {
-        FindController findController = new FindController(tableManager, tableName);
+        FindController findController = new FindController(recordCollectionManager, collectionId);
         String searchText = enterField.getText();
 
         if (!searchText.isEmpty()) {
@@ -173,12 +194,12 @@ public class CollectionSceneController implements Initializable {
     }
 
     private void refreshCollectionDuration() {
-        this.collectionService = new CollectionService(tableManager.selectAllFromTable(tableName));
+        this.collectionService = new CollectionService(recordManager.getRecordsByCollectionId(collectionId));
         collectionDurationLabel.setText(collectionService.collectionDuration());
     }
 
     private void refreshDisplay() {
-        List<Record> allRecords = tableManager.selectAllFromTable(tableName);
+        List<Record> allRecords = recordManager.getRecordsByCollectionId(collectionId);
         displayRecords(allRecords);
     }
 
@@ -190,24 +211,16 @@ public class CollectionSceneController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
-    private AnchorPane moreInfoBanner;
-    @FXML
-    private Label authorLabel;
-    @FXML
-    private Label descriptionLabel;
-
     public void handleMoreButtonClick(ActionEvent event) {
-        // Example: populate and show the banner
-        authorLabel.setText("Author: John Doe");
-        descriptionLabel.setText("Description: A beautiful instrumental...");
+        authorLabel.setText("Author:");
+        descriptionLabel.setText("Description:");
         moreInfoBanner.setVisible(true);
-        moreInfoBanner.setManaged(true); // ensures it takes layout space
+        moreInfoBanner.setManaged(true);
     }
 
     public void handleCloseMoreInfo(ActionEvent event) {
         moreInfoBanner.setVisible(false);
-        moreInfoBanner.setManaged(false); // collapses it in the layout
+        moreInfoBanner.setManaged(false);
     }
 
 

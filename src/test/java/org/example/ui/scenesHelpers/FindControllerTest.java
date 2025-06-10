@@ -3,68 +3,61 @@ package org.example.ui.scenesHelpers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.models.Record;
-import org.example.repository.DBManager;
-import org.example.repository.DBTableManager;
+import org.example.repository.DBRecordCollectionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
-class FindControllerTest {
+public class FindControllerTest {
 
-    private DBManager dbManager = new DBManager();
-    private DBTableManager repository;
+    private final int collectionId = 1;
+    private DBRecordCollectionManager mockManager;
     private FindController findController;
 
     @BeforeEach
-    void setUp() {
-        repository = mock(DBTableManager.class);
-        dbManager.createTable("test_table");
-        findController = new FindController(repository, "test_table");
+    void setup() {
+        mockManager = mock(DBRecordCollectionManager.class);
+        findController = new FindController(mockManager, collectionId);
     }
 
     @Test
-    void testFindBy_title() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(repository.findByParameter("test_table", "title", "Test")).thenReturn(expected);
+    void testFindBy_titleOrStyle_callsFindByParameter() {
+        ObservableList<Record> dummyList = FXCollections.observableArrayList();
+        when(mockManager.findByParameter(collectionId, "title", "inputValue")).thenReturn(dummyList);
+        when(mockManager.findByParameter(collectionId, "style", "inputValue")).thenReturn(dummyList);
 
-        ObservableList<Record> result = findController.findBy("title", "Test");
+        // parameter = "title"
+        ObservableList<Record> result1 = findController.findBy("title", "inputValue");
+        verify(mockManager).findByParameter(collectionId, "title", "inputValue");
+        assertSame(dummyList, result1);
 
-        assertSame(expected, result);
-        verify(repository).findByParameter("test_table", "title", "Test");
+        // parameter = "style"
+        ObservableList<Record> result2 = findController.findBy("style", "inputValue");
+        verify(mockManager).findByParameter(collectionId, "style", "inputValue");
+        assertSame(dummyList, result2);
     }
 
     @Test
-    void testFindBy_style() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(repository.findByParameter("test_table", "style", "Rock")).thenReturn(expected);
+    void testFindBy_duration_callsFindByDuration() {
+        ObservableList<Record> dummyList = FXCollections.observableArrayList();
+        when(mockManager.findByDuration(collectionId, "00:00:00", "inputValue")).thenReturn(dummyList);
 
-        ObservableList<Record> result = findController.findBy("style", "Rock");
+        ObservableList<Record> result = findController.findBy("duration", "inputValue");
 
-        assertSame(expected, result);
-        verify(repository).findByParameter("test_table", "style", "Rock");
+        verify(mockManager).findByDuration(collectionId, "00:00:00", "inputValue");
+        assertSame(dummyList, result);
     }
 
     @Test
-    void testFindBy_duration() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(repository.findByDuration("test_table", "00:00:00", "03:30")).thenReturn(expected);
+    void testFindBy_default_callsFindByParameterWithTitle() {
+        ObservableList<Record> dummyList = FXCollections.observableArrayList();
+        when(mockManager.findByParameter(collectionId, "title", "inputValue")).thenReturn(dummyList);
 
-        ObservableList<Record> result = findController.findBy("duration", "03:30");
+        ObservableList<Record> result = findController.findBy("unknownParam", "inputValue");
 
-        assertSame(expected, result);
-        verify(repository).findByDuration("test_table", "00:00:00", "03:30");
-    }
-
-    @Test
-    void testFindBy_unknownParameter() {
-        ObservableList<Record> expected = FXCollections.observableArrayList();
-        when(repository.findByParameter("test_table", "title", "SomeValue")).thenReturn(expected);
-
-        ObservableList<Record> result = findController.findBy("unknown", "SomeValue");
-
-        assertSame(expected, result);
-        verify(repository).findByParameter("test_table", "title", "SomeValue");
+        verify(mockManager).findByParameter(collectionId, "title", "inputValue");
+        assertSame(dummyList, result);
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.repository.DBManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,8 @@ import static org.example.ui.UIConstants.*;
 
 public class JavaFXMain extends Application {
     private static final Logger logger = LoggerFactory.getLogger(JavaFXMain.class);
+    DBManager dbManager = new DBManager();
+//    DevRecordsForDB uploadData = new DevRecordsForDB();
 
     public static void main(String[] args) {
         launch(args);

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.models.Record;
-import org.example.repository.DBTableManager;
+import org.example.repository.DBRecordCollectionManager;
 import org.example.ui.scenesHelpers.SceneController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,24 +28,21 @@ public class CreateRecordSceneController {
     @FXML
     Label notificationLabel;
 
-    private DBTableManager repository;
-    private String tableName;
+    private DBRecordCollectionManager recordCollectionManager = new DBRecordCollectionManager();
+    //    private DBRecordManager recordManager;
+    private int collectionId;
 
     public CreateRecordSceneController() {
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public void setRepository(DBTableManager repository) {
-        this.repository = repository;
+    public void setCollectionId(int collectionId) {
+        this.collectionId = collectionId;
     }
 
     public void clickOnSubmitButton(ActionEvent e) {
         Record record = createRecord();
         if (record != null) {
-            repository.insertIntoTable(record, tableName);
+            recordCollectionManager.addRecordToCollection(record, collectionId);
             showSuccess("Record created successfully!");
             clearFields();
         } else {
@@ -97,6 +94,6 @@ public class CreateRecordSceneController {
     @FXML
     public void goToProgramUI(ActionEvent e) {
         SceneController sceneController = new SceneController();
-        sceneController.goToRecordCollectionScene(e, tableName);
+        sceneController.goToRecordCollectionScene(e, collectionId);
     }
 }

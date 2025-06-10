@@ -75,23 +75,23 @@
                                             <!-- More button -->
                                             <Button text="More" onAction="#handleMoreButtonClick"/>
 
-                                            <!-- Hidden banner initially -->
-                                            <AnchorPane fx:id="moreInfoBanner" visible="false" managed="false"
-                                                        style="-fx-background-color: #f1f3f5; -fx-padding: 10; -fx-border-color: #adb5bd; -fx-border-radius: 5;">
-                                                <VBox spacing="5">
-                                                    <HBox alignment="TOP_RIGHT">
-                                                        <Button text="X" onAction="#handleCloseMoreInfo"
-                                                                style="-fx-background-color: transparent; -fx-font-weight: bold;"/>
-                                                    </HBox>
-                                                    <Label fx:id="authorLabel" text="Author: ..."/>
-                                                    <Label fx:id="descriptionLabel" text="Description: ..."
-                                                           wrapText="true"/>
-                                                </VBox>
-                                            </AnchorPane>
+
                                         </VBox>
 
                                     </content>
                                 </ScrollPane>
+                                <!-- Hidden banner initially -->
+                                <AnchorPane fx:id="moreInfoBanner" visible="false" managed="false"
+                                            style="-fx-background-color: #f1f3f5; -fx-padding: 10; -fx-border-color: #adb5bd; -fx-border-radius: 5;">
+                                    <VBox spacing="5">
+                                        <HBox alignment="TOP_RIGHT">
+                                            <Button text="X" onAction="#handleCloseMoreInfo"
+                                                    style="-fx-background-color: transparent; -fx-font-weight: bold;"/>
+                                        </HBox>
+                                        <Label fx:id="authorLabel" text="Author: ..."/>
+                                        <Label fx:id="descriptionLabel" text="Description: ..." wrapText="true"/>
+                                    </VBox>
+                                </AnchorPane>
                             </children>
                         </AnchorPane>
 
