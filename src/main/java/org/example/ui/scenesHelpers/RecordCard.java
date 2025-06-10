@@ -24,12 +24,6 @@ public class RecordCard {
         card.setPadding(new Insets(20));
         card.getStyleClass().add("record-card");
 
-        // Hover effects
-//        setupCardHoverEffects(card, record);
-
-        // Selection click
-//        card.setOnMouseClicked(e -> selectRecord(record, card));
-
         HBox header = createHeader(record);
         VBox moreInfoBanner = createMoreInfoBanner(record);
         Label titleLabel = createTitle(record);
@@ -38,22 +32,6 @@ public class RecordCard {
         card.getChildren().addAll(header, titleLabel, styleWithMore, moreInfoBanner);
         return card;
     }
-
-//    private void setupCardHoverEffects(VBox card, Record record, Record selectedRecord) {
-//        card.setOnMouseEntered(e -> {
-//            if (selectedRecord != record) {
-//                card.getStyleClass().remove("record-card");
-//                card.getStyleClass().add("record-card-hover");
-//            }
-//        });
-//
-//        card.setOnMouseExited(e -> {
-//            if (selectedRecord != record) {
-//                card.getStyleClass().remove("record-card-hover");
-//                card.getStyleClass().add("record-card");
-//            }
-//        });
-//    }
 
     private HBox createHeader(Record record) {
         HBox header = new HBox();
@@ -172,23 +150,3 @@ public class RecordCard {
         recordsContainer.getChildren().add(emptyState);
     }
 }
-
-//    private void selectRecord(Record record, VBox card) {
-//        // Clear previous selection
-//        if (selectedRecord != null) {
-//            this.recordsContainer.getChildren().forEach(node -> {
-//                if (node instanceof VBox) {
-//                    node.getStyleClass().clear();
-//                    node.getStyleClass().add("record-card");
-//                }
-//            });
-//        }
-//
-//        // Set new selection
-//        selectedRecord = record;
-//        card.getStyleClass().clear();
-//        card.getStyleClass().add("record-card-selected");
-//
-//        System.out.println("Selected record: " + record.getTitle());
-//    }
-
